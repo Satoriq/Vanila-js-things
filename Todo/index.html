@@ -23,9 +23,20 @@
 
       <div>
         <button onclick="handlers.changeTodo()">Change Todo</button>
-        <input id="js-change-Todo-Position-Input" type="number">
-        <input id="js-change-Todo-Text-Input" type="text">
+        <input id="js-change-todo-position-input" type="number">
+        <input id="js-change-todo-text-input" type="text">
       </div>
+
+      <div>
+        <button onclick="handlers.deleteTodo()">Delete</button>
+        <input id="js-delete-todo-position-input" type="number">
+      </div>
+
+      <div>
+        <button onclick="handlers.toggleCompleted()">Toggle Completed</button>
+        <input id="js-toggle-completed-position-input" type="number"> 
+      </div>
+
       <script src="todo.js"></script>
     </body>
 </html>
