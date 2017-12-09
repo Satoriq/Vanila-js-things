@@ -4,36 +4,27 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Todo</title>
-        <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="manifest" href="site.webmanifest">
-        <link rel="apple-touch-icon" href="icon.png">
+        <link rel="stylesheet" href="main.css">
     </head>
     <body>
-      Hello
-      <div> 
-        <button onclick="handlers.toggleAll()">Toggle All</button>
-      </div>
-
-      <div>
+      <div class="add">
         <button onclick="handlers.addTodo()">Add</button>
-        <input id="js-add-todo" type="text">
+        <input id="js-add-todo" type="text" placeholder="Todo">
       </div>
-
-      <div>
+      <div class="change">
         <button onclick="handlers.changeTodo()">Change Todo</button>
-        <input id="js-change-todo-position-input" type="number">
-        <input id="js-change-todo-text-input" type="text">
+        <input id="js-change-todo-position-input" type="number" placeholder="Number of todo -1">
+        <input id="js-change-todo-text-input" type="text" placeholder="New todo">
       </div>
 
-      <div>
-        <button onclick="handlers.deleteTodo()">Delete</button>
-        <input id="js-delete-todo-position-input" type="number">
-      </div>
-
-      <div>
+      <div class="toggle">
         <button onclick="handlers.toggleCompleted()">Toggle Completed</button>
-        <input id="js-toggle-completed-position-input" type="number"> 
+        <input id="js-toggle-completed-position-input" type="number" placeholder="Number of todo -1"> 
+      </div>
+
+      <div class="toggle--all"> 
+        <button onclick="handlers.toggleAll()">Toggle All</button>
       </div>
 
       <ul>
