@@ -101,3 +101,4 @@ var view = {
   }
 };
 
+view.setUpEventListeners();
