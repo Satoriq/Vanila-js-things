@@ -44,4 +44,19 @@ function timesFive(num) {  //return number multiplied by 5
 }
 result = timesfive(3);
 
+const TAX_RATE = 0.08;
+function calculateFinalPurchaseAmount(amt) {
+	amt = amt + (amt * TAX_RATE);
+	return amt;
+}
+var amount = 99.99;
+amount = calculateFinalPurchaseAmount(amount);
+console.log( amount.toFixed(2));	
 
+//while
+while (amount<bank_balance){
+  amount = amount + PHONE_PRICE;
+  if (amount < SPENDING_THRESHOLD) {
+    amount = amount + ACCESSORY_PRICE;
+  }
+}
