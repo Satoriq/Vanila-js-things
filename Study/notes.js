@@ -131,9 +131,85 @@ var a = 42;
 })();
 console.log( a );		// 42
 
+//CLOSURE
+
+function makeAdder(x) {
+	// parameter `x` is an inner variable
+	// inner function `add()` uses `x`, so
+	// it has a "closure" over it
+	function add(y) {
+		return y + x;
+	};
+	return add;
+}
+// Мы даем  единицу, внутриняя функцыя add() запоминает эту единицу как X при переменной plusOne
+var plusOne = makeAdder( 1 );
+// а теперь мы даем 10 и при вызове через переменную plusTen()  x , будет 10, ибо он запомнил как 10
+// но при вызове через plusOne оно помнит внутрений x как 1 Пейн! Я не чувствую логики!
+var plusTen = makeAdder( 10 );
+plusOne( 3 ); //Тройка присваивается внутреней Y а X === 1 при plusOne()		// 4  <-- 1 + 3
+plusOne( 41 );		// 42 <-- 1 + 41
+plusTen( 13 );//13 присваивается Y во внутреней, а X функцыя помнит как 10		// 23 <-- 10 + 13
+
+//MODULES
+function User(){
+	var username, password;
+	function doLogin(user,pw) {
+		username = user;
+		password = pw;
+		// do the rest of the login work
+	}
+	var publicAPI = {
+		login: doLogin
+	};
+	return publicAPI;
+}
+// create a `User` module instance
+var fred = User();
+fred.login( "fred", "12Battery34!" );//обращаемся как к обьекту, и выполняем внутренюю doLogin
+//username and password a closure in the login() function with keeping them alive.
+//We can call fred.login(..) -- the same as calling the inner doLogin(..)
+ // -- and it can still access username and password inner variables.
+
+//PROTOTYPES
+var foo = {
+	a: 42
+};
+// create `bar` and link it to `foo`
+var bar = Object.create( foo );
+bar.b = "hello world";
+bar.b;		// "hello world"
+bar.a;		// 42 <-- delegated to `foo`
+
+
+//THIS
+function foo() {
+	console.log( this.bar );
+}
+var bar = "global";
+var obj1 = {
+	bar: "obj1",
+	foo: foo
+};
+var obj2 = {
+	bar: "obj2"
+};
+
+foo();				// "global"
+obj1.foo();			// "obj1"
+foo.call( obj2 );		// "obj2"
+new foo();			// undefined
+
+
+//ASYNC  ES6
+//Promises are a time-independent wrapper around a "future value," which lets you reason about and compose them regardless of if the value is ready or not yet. 
+//Generators introduce a new mode of execution for JS functions, whereby the generator can be paused at yield points and be resumed asynchronously later. 
+
+
+
 //
 // ────────────────────────────────────────────────────────────────────────────────── I ──────────
-//   :::::: M O N I P U L A T I O N : :  :   :    :     :        :          :
+//   :::::: M A N I P U L A T I O N : :  :   :    :     :        :          :
 // ────────────────────────────────────────────────────────────────────────────────────────────
 //
 var a = document.querySelector('.some__class');
