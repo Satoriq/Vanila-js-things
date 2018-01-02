@@ -132,7 +132,8 @@ var a = 42;
 console.log( a );		// 42
 
 //CLOSURE
-
+//функция внутри функции которая видит переменные внещней функции и после исполнения функции внутреняя функция
+// помнит переменные
 function makeAdder(x) {
 	// parameter `x` is an inner variable
 	// inner function `add()` uses `x`, so
@@ -150,6 +151,15 @@ var plusTen = makeAdder( 10 );
 plusOne( 3 ); //Тройка присваивается внутреней Y а X === 1 при plusOne()		// 4  <-- 1 + 3
 plusOne( 41 );		// 42 <-- 1 + 41
 plusTen( 13 );//13 присваивается Y во внутреней, а X функцыя помнит как 10		// 23 <-- 10 + 13
+function makeAdder(x) {
+	return function(y) {
+	  return x + y;
+	};
+  }
+  var add5 = makeAdder(5);
+  var add10 = makeAdder(10);
+  console.log(add5(2));  // 7
+  console.log(add10(2)); // 12
 
 //MODULES
 function User(){
@@ -194,16 +204,32 @@ var obj1 = {
 var obj2 = {
 	bar: "obj2"
 };
-
 foo();				// "global"
 obj1.foo();			// "obj1"
 foo.call( obj2 );		// "obj2"
 new foo();			// undefined
 
+//CALLBACK
+//Это функцыя которая находиться внутри функции в виде параметра внешней(higher-order) функции
+//И выполняеться только после того как внешняя функцыя выполнена
+//Functions that do this are called higher-order functions. Any function that is passed 
+//as an argument "function(something, callback)" is called a callback function.
+//function callback(){ alert('hi, i'm callback);}
+T.get('search/tweets', params, function(err, data, response) {
+	if(!err){
+	  // This is where the magic will happen
+	} else {
+	  console.log(err);
+	}
+  });
+//This function wait for Twitter API response, then only after response, execute (callback) function
+
+
 
 //ASYNC  ES6
 //Promises are a time-independent wrapper around a "future value," which lets you reason about and compose them regardless of if the value is ready or not yet. 
 //Generators introduce a new mode of execution for JS functions, whereby the generator can be paused at yield points and be resumed asynchronously later. 
+
 
 
 
