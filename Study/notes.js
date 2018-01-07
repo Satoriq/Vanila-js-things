@@ -19,6 +19,8 @@ function wordBlanks(myNoun, myAdjective, myVerb, myAdverb) {
   }
 wordBlanks("dog", "big", "ran", "quickly");
 
+
+/*----------  ARRAYS  ----------*/
 var myArray = [["girls", 2], ["cup", 1]];
 var myArray = [1,2,3];
 var myData = myArray[0];
@@ -34,10 +36,48 @@ myArray.unshift(["Paul", 35]); //create a element at start of array
 console.log(amount);				// 215.9784
 console.log(amount.toFixed(2));	// "215.98"
 
+/*----------  SPREAD OPERATOR ...  ----------*/
+var middle = [3, 4];
+var arr = [1, 2, middle, 5, 6];
+console.log(arr);// [1, 2, [3, 4], 5, 6]
+var middle = [3, 4];
+var arr = [1, 2, ...middle, 5, 6];
+console.log(arr); // [1, 2, 3, 4, 5, 6]
+/*----------  String to Array  ----------*/
+var str = "hello";
+var chars = [...str];
+console.log(chars); // ['h', 'e',' l',' l', 'o']
+
+/*----------  MATH  ----------*/
+const arrMax = arr => Math.max(...arr);
+// IS THE SAME AS
+arrMax = function(arr){
+  return Math.max(...arr);
+};
+Math.min(1,2,3,4)// 1
+Math.min([1,2,3,4])// NaN
+Math.min(...[1,2,3,4]) /*is the same as */ Math.min(1,2,3,4)
+
+/*----------  Maximum value  ----------*/
+const arrMax = arr => Math.max(...arr); // arrMax([20, 10, 5, 10]) -> 20
+
+/*----------  Sum of all values  ----------*/
+const arrSum = arr => arr.reduce((a,b) => a + b, 0) // arrSum([20, 10, 5, 10]) -> 45
+//Reduce method reduce our array to a single value
+//a is our accumulator. It will accumulate our sum as our function works. 
+//b is the current value being processed.
+//The second parameter of the reduce method is the initial value we wish to use.
+
+/*----------  Average value  ----------*/
+const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length // arrAvg([20, 10, 5, 10]) -> 11.25
+
+
+/*----------  CONSTANT  ----------*/
 var SOME_THING = 21; //Constant
 const NEXT_THING = 21; //Constant in ES6
 
 // variable within a function without var === global variable  global = 5;
+
 
 function timesFive(num) {  //return number multiplied by 5
   return num * 5;
@@ -67,14 +107,12 @@ var b = a * 1;	// "42" implicitly coerced to 42 here
 a;				// "42"
 b;				// 42 -- the number!
 
-
 var a = [1,2,3];
 var b = [1,2,3];
 var c = "1,2,3";
 a == c;		// true
 b == c;		// true
 a == b;		// false  wtf
-
 
 var a = 2;
 foo();					// works because `foo()`
@@ -115,7 +153,8 @@ var b = (a > 41) ? "hello" : "world";
 // }
 
 
-// IIFE
+
+/*----------  IIFE  ----------*/
 (function sum(a, b) {
     console.log(a + b); // 5
 })(2, 3);
@@ -131,7 +170,8 @@ var a = 42;
 })();
 console.log( a );		// 42
 
-//CLOSURE
+
+/*----------  CLOSURE  ----------*/
 //функция внутри функции которая видит переменные внещней функции и после исполнения функции внутреняя функция
 // помнит переменные
 function makeAdder(x) {
@@ -161,7 +201,8 @@ function makeAdder(x) {
   console.log(add5(2));  // 7
   console.log(add10(2)); // 12
 
-//MODULES
+
+/*----------  MODULES  ----------*/
 function User(){
 	var username, password;
 	function doLogin(user,pw) {
@@ -181,7 +222,8 @@ fred.login( "fred", "12Battery34!" );//обращаемся как к обьек
 //We can call fred.login(..) -- the same as calling the inner doLogin(..)
  // -- and it can still access username and password inner variables.
 
-//PROTOTYPES
+
+/*----------  PROTOTYPES  ----------*/
 var foo = {
 	a: 42
 };
@@ -192,7 +234,8 @@ bar.b;		// "hello world"
 bar.a;		// 42 <-- delegated to `foo`
 
 
-//THIS
+
+/*----------  THIS  ----------*/
 function foo() {
 	console.log( this.bar );
 }
@@ -209,7 +252,9 @@ obj1.foo();			// "obj1"
 foo.call( obj2 );		// "obj2"
 new foo();			// undefined
 
-//CALLBACK
+
+/*----------  CALLBACK  ----------*/
+
 //Это функцыя которая находиться внутри функции в виде параметра внешней(higher-order) функции
 //И выполняеться только после того как внешняя функцыя выполнена
 //Functions that do this are called higher-order functions. Any function that is passed 
@@ -226,7 +271,8 @@ T.get('search/tweets', params, function(err, data, response) {
 
 
 
-//ASYNC  ES6
+
+/*----------  CALLBACK  ----------*/
 //Promises are a time-independent wrapper around a "future value," which lets you reason about and compose them regardless of if the value is ready or not yet. 
 //Generators introduce a new mode of execution for JS functions, whereby the generator can be paused at yield points and be resumed asynchronously later. 
 
