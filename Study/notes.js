@@ -1,5 +1,6 @@
 var myName;
 myName = "My name is " + myName + " and I am swell!";
+myName = `My name is ${myName}`;
 
 var someAdjective = "...";
 var myStr = "Learning to code is ";
@@ -242,7 +243,8 @@ function foo() {
 var bar = "global";
 var obj1 = {
 	bar: "obj1",
-	foo: foo
+	foo: foo,
+	price: 100.20
 };
 var obj2 = {
 	bar: "obj2"
@@ -254,6 +256,8 @@ new foo();			// undefined
 
 
 /*----------  CALLBACK  ----------*/
+//Promises are a time-independent wrapper around a "future value," which lets you reason about and compose them regardless of if the value is ready or not yet. 
+//Generators introduce a new mode of execution for JS functions, whereby the generator can be paused at yield points and be resumed asynchronously later. 
 
 //Это функцыя которая находиться внутри функции в виде параметра внешней(higher-order) функции
 //И выполняеться только после того как внешняя функцыя выполнена
@@ -272,18 +276,13 @@ T.get('search/tweets', params, function(err, data, response) {
 
 
 
-/*----------  CALLBACK  ----------*/
-//Promises are a time-independent wrapper around a "future value," which lets you reason about and compose them regardless of if the value is ready or not yet. 
-//Generators introduce a new mode of execution for JS functions, whereby the generator can be paused at yield points and be resumed asynchronously later. 
-
-
-
-
 //
 // ────────────────────────────────────────────────────────────────────────────────── I ──────────
 //   :::::: M A N I P U L A T I O N : :  :   :    :     :        :          :
 // ────────────────────────────────────────────────────────────────────────────────────────────
 //
+var a = document.getElementById('some__id');
+var a = document.getElementsByClassName('some__class');
 var a = document.querySelector('.some__class');
 a.classList.add('another__class');
 a.classList.remove('another__class');
@@ -292,3 +291,44 @@ a.classList.replace('oldClass', 'newClass');
 a.classList.contains('oldClass');// ckeck if class exist
 querySelector //Returns the first matching Element node
 querySelectorAll //Returns a NodeList containing all matching Element
+
+
+
+//
+// ────────────────────────────────────────────────────────────────────────────────── I ───────
+//   :::::: F E A T U R E S : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────────────────────────────
+//
+
+window.setInterval(500, something()); //asynchronously execute a function every 500m.s.
+
+/*----------  String to Array  ----------*/
+var str = "hello";
+var chars = [...str];
+console.log(chars); // ['h', 'e',' l',' l', 'o']
+
+Math.random(); //random number between 0 and 1
+Math.random() * 50; //random number between 0 and 50, but output will be decimal
+Math.floor(Math.random() * 50); //rounded random number between 0 and 50
+
+
+
+//
+// ────────────────────────────────────────────────────────────────────────────────── I ───────
+//   :::::: G O O G L E   M A P S   A P I : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────────────────────────────
+//
+function initMap(){
+	let map = new google.maps.Map(getElementById('js-map'), {
+		center: {lat: 11.111, lng: -11.111},
+		zoom: 8
+	});
+	new google.maps.Marker({
+		map: map, //which map
+		positionL: {lat: 11.111, lng: -11.111}
+	});
+	new google.maps.Marker({
+		map: map,
+		positionL: {lat: 11.111, lng: -11.111}
+	});
+}
