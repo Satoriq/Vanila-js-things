@@ -20,6 +20,27 @@ function wordBlanks(myNoun, myAdjective, myVerb, myAdverb) {
   }
 wordBlanks("dog", "big", "ran", "quickly");
 
+/*----------  RETURN  ----------*/
+var orderCount = 0;
+function takeOrder(topping, crustType) {
+  console.log('Order: ' + crustType + ' crust topped with ' + topping);
+  orderCount = orderCount + 1;
+}
+function getSubTotal(itemCount) {
+  return itemCount * 7.5;
+}
+function getTax() {
+  return getSubTotal(orderCount) * 0.06;
+}
+function getTotal() {
+  return getSubTotal(orderCount) + getTax();
+}
+
+
+takeOrder('bacon', 'thin');
+takeOrder('pepperoni', 'regular');
+takeOrder('pesto', 'thin');
+
 
 /*----------  ARRAYS  ----------*/
 var myArray = [["girls", 2], ["cup", 1]];
@@ -102,6 +123,23 @@ while (amount<bank_balance){
   }
 }
 
+// Switch
+var groceryItem = 'papaya';
+switch (groceryItem) {
+  case 'tomato':
+    console.log('Tomatoes are $0.49');
+    break;
+  case 'lime':
+    console.log('Limes are $1.49');
+    break;
+  case 'papaya':
+    console.log('Papayas are $1.29');
+    break;
+  default:
+    console.log('Invalid item');
+    break;
+}
+
 //Example of implicit coercion:
 var a = "42";
 var b = a * 1;	// "42" implicitly coerced to 42 here
@@ -142,16 +180,6 @@ function foo() {
 }
 foo();
 
-
-var a = 42;
-var b = (a > 41) ? "hello" : "world";
-// similar to:
-// if (a > 41) {
-//    b = "hello";
-// }
-// else {
-//    b = "world";
-// }
 
 
 
@@ -311,7 +339,9 @@ Math.random(); //random number between 0 and 1
 Math.random() * 50; //random number between 0 and 50, but output will be decimal
 Math.floor(Math.random() * 50); //rounded random number between 0 and 50
 
-
+var hello = 'Hello World';
+console.log(hello[6]); // Output: W  Sting === array 0_0
+console.log(hello.length); // Output: 11 
 
 //
 // ────────────────────────────────────────────────────────────────────────────────── I ───────
