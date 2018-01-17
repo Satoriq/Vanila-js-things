@@ -115,15 +115,62 @@ var amount = 99.99;
 amount = calculateFinalPurchaseAmount(amount);
 console.log( amount.toFixed(2));	
 
-//while
+/*----------  WHILE  ----------*/
 while (amount<bank_balance){
   amount = amount + PHONE_PRICE;
   if (amount < SPENDING_THRESHOLD) {
     amount = amount + ACCESSORY_PRICE;
   }
 }
+//sorted out array with random number, and wait for spade
+var cards = ['Diamond', 'Spade', 'Heart', 'Club'];
+var currentCard = 'Heart';
+while(currentCard !== 'Spade'){
+  console.log(currentCard);
+  var randomNumber = Math.floor(Math.random()*4);
+  currentCard = cards[randomNumber];
+}
+if (currentCard == 'Spade'){
+  console.log('Found');
+}
 
-// Switch
+
+/*----------  forEach() map() filter()  ----------*/
+forEach() — executes a provided function once for each array element.
+map() — creates a new array with the results of calling a provided function on every element in the calling array.
+
+//forEach
+arr.forEach((num, index) => {
+	return arr[index] = num * 2;
+});
+// arr = [2, 4, 6, 8, 10]
+
+//Map
+let doubled = arr.map(num => {
+    return num * 2;
+});
+// doubled = [2, 4, 6, 8, 10]
+let mapped = sample.map(elem => elem * 10)
+console.log(mapped);
+// output  [10, 20, 30]
+
+//Map + filter 
+let arr = [1, 2, 3, 4, 5];
+let arr2 = arr.map(num => num * 2).filter(num => num > 5);
+// arr2 = [6, 8, 10]
+
+//Filter
+var sample = [1, 2, 3] // yeah same array
+// es5
+var result = sample.filter(function(elem){
+    return elem !== 2;
+}); // [1, 3]
+// es6
+var result = sample.filter(elem => elem !== 2)
+
+
+
+/*----------  SWITCH  ----------*/
 var groceryItem = 'papaya';
 switch (groceryItem) {
   case 'tomato':
@@ -362,3 +409,83 @@ function initMap(){
 		positionL: {lat: 11.111, lng: -11.111}
 	});
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+// ────────────────────────────────────────────────────────────────────────────────── I ───────
+//   :::::: jQuery... : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────────────────────────────
+//
+
+$(document).ready(main); //wait for dom download, then execute main function
+document.getElementsByClassName('skillset'); === $('.skillset');
+$('.skillset').hide(); // display: none
+$('.projects').show(); //block...
+$('.skillset').fadeIn(1000); // fade during 1s. "появление"
+$(this).next().slideToggle(400); // "плавный выезд"
+$(this).next().toggle(); // next = next element in DOM
+$(this).text('Projects Viewed'); //inerHtml
+$('.projects-button').on('click', function() {
+	$('.projects').toggle(); //switch between block and none
+	$('.projects').toggleClass('active');
+	$(this).toggleClass('active'); //this = dom element which was clicked 
+});
+
