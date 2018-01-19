@@ -353,7 +353,7 @@ T.get('search/tweets', params, function(err, data, response) {
 
 //
 // ────────────────────────────────────────────────────────────────────────────────── I ──────────
-//   :::::: M A N I P U L A T I O N : :  :   :    :     :        :          :
+//   ::::::  D O M   M A N I P U L A T I O N : :  :   :    :     :        :          :
 // ────────────────────────────────────────────────────────────────────────────────────────────
 //
 var a = document.getElementById('some__id');
@@ -365,9 +365,84 @@ a.classList.toggle('another__class'); // if class exist then remove, if not, add
 a.classList.replace('oldClass', 'newClass');
 a.classList.contains('oldClass');// ckeck if class exist
 querySelector //Returns the first matching Element node
-querySelectorAll //Returns a NodeList containing all matching Element
+querySelectorAll('p.intro') //Returns a NodeList containing all matching Element
+
+//Attribute
+document.getElementById("myImage").src = "landscape.jpg";
+
+document.getElementsByTagName(name)
+element.attribute = new value
+element.setAttribute(attribute, value)
+element.style.property = new style
+
+document.createElement(element)	//Create an HTML element
+document.removeChild(element)	//Remove an HTML element
+document.appendChild(element)	//Add an HTML element
+document.replaceChild(element)	//Replace an HTML element
+
+document.open();
+document.write("<h1>Out with the old - in with the new!</h1>");
+document.close();
 
 
+//
+// ────────────────────────────────────────────────────────────────────────────────── I ───────
+//   :::::: E V E N T S  : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────────────────────────────
+//
+document.getElementById("myBtn").onclick = function(){code}
+document.getElementById("myBtn").addEventListener("click", doSomething()); //instead of click you can put 'mousedown' etc
+addEventListener(event, function, useCapture); // use capture === bubbling , true or false,  true = disable bubbling
+you can; removeEventListener();
+
+<body onload="checkCookies()"></body>
+
+<input type="text" onfocus="myFunction(this)">
+function myFunction(x) {x.style.background = "yellow";}
+
+<input type="text" id="fname" onchange="upperCase()"/>
+
+<div onmouseover="mOver(this)" onmouseout="mOut(this)">Mouse Over Me</div>
+function mOut(obj) {obj.innerHTML = "Mouse Over Me"}
+
+<div onmousedown="mDown(this)" onmouseup="mUp(this)">Click Me</div>
+function mDown(obj) {obj.innerHTML = "Release Me";}
+
+window.setInterval(function, milliseconds);
+
+window.setTimeout(function, milliseconds);
+window.clearTimeout()
+
+//
+// ────────────────────────────────────────────────────────────────────────────────── I ───────
+//   :::::: B O M   : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────────────────────────────
+//
+var w = window.innerWidth;
+var h = window.innerHeight;
+window.open() - open a new window
+window.close() - close the current window
+window.moveTo() -move the current window
+window.resizeTo() -resize the current window
+window.alert("sometext");
+window.confirm("sometext");
+window.prompt("sometext","defaultText");
+
+screen.width
+screen.height
+screen.availWidth   //=== width minus interface features like the Windows Taskbar.
+screen.availHeight
+screen.colorDepth
+screen.pixelDepth
+
+navigator.cookieEnabled
+navigator.userAgent
+navigator.language
+
+function goBack() {
+	window.history.back() //previous page
+	window.history.forward()
+}
 
 //
 // ────────────────────────────────────────────────────────────────────────────────── I ───────
