@@ -13,12 +13,14 @@ firstLetterOfLastName = lastName[0];
 var lastName = "LovePeace";
 var secondToLastLetterOfLastName = lastName[lastName.length -2];
 
+/*----------  Functions  ----------*/
 function wordBlanks(myNoun, myAdjective, myVerb, myAdverb) {
     var result = "";
     result += "My "+myAdjective+" "+myNoun+" "+myVerb+" very "+myAdverb+".";
     return result;
   }
 wordBlanks("dog", "big", "ran", "quickly");
+
 
 /*----------  RETURN  ----------*/
 var orderCount = 0;
@@ -135,38 +137,125 @@ if (currentCard == 'Spade'){
 }
 
 
-/*----------  forEach() map() filter()  ----------*/
-forEach() — executes a provided function once for each array element.
-map() — creates a new array with the results of calling a provided function on every element in the calling array.
 
-//forEach
+//
+// ────────────────────────────────────────────────────────────────────────────────── I ───────
+//   :::::: forEach() map() filter() sort() reduce()  : :  :   :    :     :        :          
+// ────────────────────────────────────────────────────────────────────────────────────────────
+//
+
+arr = [1, 2, 3, 4, 5];
+
+/*----------  forEach()  ----------*/
+//default
+for(let i = 0; i < arr.length; i++){
+	console.log(arr[i]);
+}
+
+//smaller
+arr.forEach(function(number){
+	console.log(number);
+});
+
+// ES6
 arr.forEach((num, index) => {
 	return arr[index] = num * 2;
-});
-// arr = [2, 4, 6, 8, 10]
+});// arr = [2, 4, 6, 8, 10]
 
-//Map
+
+var sample = [1, 2, 3];
+// es5
+sample.forEach(function (elem, index){
+   console.log(elem + ' comes at ' + index);
+})
+// es6
+sample.forEach((elem, index) => console.log(`${elem} comes at ${index}`));
+
+
+/*----------  map()  ----------*/
+//default
 let doubled = arr.map(num => {
     return num * 2;
-});
-// doubled = [2, 4, 6, 8, 10]
+});//  = [2, 4, 6, 8, 10]
+
+//smaller
 let mapped = sample.map(elem => elem * 10)
-console.log(mapped);
-// output  [10, 20, 30]
+console.log(mapped);//  [10, 20, 30]
 
-//Map + filter 
+//ES 6
 let arr = [1, 2, 3, 4, 5];
-let arr2 = arr.map(num => num * 2).filter(num => num > 5);
-// arr2 = [6, 8, 10]
+let arr2 = arr.map(num => num * 2).filter(num => num > 5);// arr2 = [6, 8, 10]
 
-//Filter
-var sample = [1, 2, 3] // yeah same array
-// es5
+
+/*----------  filter()  ----------*/
+
+//default
+var sample = [1, 2, 3];
+let moreThenTwo = [];
+for(let i = 0; i< sample.length; i++){
+	if(sample[i] >2){
+		moreThenTwo.push(sample[i]);
+  }
+  
+//smaller
+const moreThenTwo = sample.filter(function(number){
+	if(number > 2){
+		return true;
+	}
+});
+const moreThenTwo = sample.filter(number => number > 2);
+
+// ES6
+const retailCompany = companies.filter(company => company.category === 'Retail');
+const from90s = companies.filter(company => (company.start >= 1980 && company.start < 1990));
+
+//smaller
 var result = sample.filter(function(elem){
     return elem !== 2;
-}); // [1, 3]
-// es6
+}); 
+
+// ES6
 var result = sample.filter(elem => elem !== 2)
+
+/*----------  sort()  ----------*/
+
+//default
+const sortedArr = arr.sort(function(a, b) { // From higher to smaller, if you want from smaller to higher switch returns
+	if(a>b){
+		return -1;
+	} else {
+		return 1;
+	}
+});
+console.log(sortedArr);
+
+// ES6
+const sortedArr2 = arr.sort((a,b) => (a>b ? 1 : -1 ))
+console.log(sortedArr2);
+
+/*----------  reduce()  ----------*/
+
+//default
+let sum = 0;
+for(let i = 0; i < arr.length; i++){
+  sum += arr[i];
+}
+console.log(sum);
+
+//smaller
+const sum2 = arr.reduce(function(total, number){
+  return total + number;
+},0);
+
+// ES6
+const sum3 = arr.reduce((total, number) => total + number, 0);
+
+/*----------  Combined  ----------*/
+const combined = arr
+	.map(number => number * 2)
+	.filter(number => number >= 2)
+	.sort((a,b) => a - b)
+	.reduce((a,b) => a + b, 0);
 
 
 
