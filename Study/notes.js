@@ -554,6 +554,53 @@ var hello = 'Hello World';
 console.log(hello[6]); // Output: W  Sting === array 0_0
 console.log(hello.length); // Output: 11 
 
+/*----------  Import/export  ----------*/
+
+// coolNumber.js
+const ultimateNumber = 42;
+export default ultimateNumber;
+// myFile.js
+import number from './coolNumber.js';
+// Default export, independently from its name, is automatically injected into number variable;
+console.log(number) // 42
+
+
+//Function export
+// sum.js
+export default function sum(x, y) {
+	return x + y;
+  }
+
+  // myFile.js
+  import sum from './sum.js';
+  const result = sum(1, 2);
+  console.log(result) // 3
+
+
+/*----------  Class  ----------*/
+//Before es6
+var Person = function(name, age) {
+	this.name = name;
+	this.age = age;
+  }
+  Person.prototype.stringSentence = function() {
+	return "Hello, my name is " + this.name + " and I'm " + this.age;
+	}
+	
+//es6
+class Person {
+	constructor(name, age) {
+	  this.name = name;
+	  this.age = age;
+	}
+	
+	stringSentence() {
+		return "Hello, my name is " + this.name + " and I'm " + this.age;
+	}}
+  
+const myPerson = new Person("Manu", 23);
+console.log(myPerson.age) // 23
+console.log(myPerson.stringSentence()) // "Hello, my name is Manu and I'm 23
 //
 // ────────────────────────────────────────────────────────────────────────────────── I ───────
 //   :::::: G O O G L E   M A P S   A P I : :  :   :    :     :        :          :
