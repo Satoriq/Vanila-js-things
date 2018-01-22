@@ -601,7 +601,35 @@ class Person {
 const myPerson = new Person("Manu", 23);
 console.log(myPerson.age) // 23
 console.log(myPerson.stringSentence()) // "Hello, my name is Manu and I'm 23
-//
+
+
+/*----------  ASYNC  ----------*/
+
+//Callback
+Something.save(function(err) {
+	if (err)  {//error handling
+	  return;
+	}
+	console.log('success');
+  });
+
+//Async
+async.map([1, 2, 3], AsyncSquaringLibrary.square, 
+  function(err, result){// [1, 4, 9]
+});
+
+/*----------  Promise  ----------*/
+function saveToTheDb(value) {
+	return new Promise(function(resolve, reject) {
+	  db.values.insert(value, function(err, user) { 
+		if (err) {
+		  return reject(err); 
+		}
+		resolve(user);
+	  })
+	}
+  }
+  //
 // ────────────────────────────────────────────────────────────────────────────────── I ───────
 //   :::::: G O O G L E   M A P S   A P I : :  :   :    :     :        :          :
 // ────────────────────────────────────────────────────────────────────────────────────────────
