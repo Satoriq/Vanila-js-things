@@ -13,6 +13,7 @@ firstLetterOfLastName = lastName[0];
 var lastName = "LovePeace";
 var secondToLastLetterOfLastName = lastName[lastName.length -2];
 
+
 /*----------  Functions  ----------*/
 function wordBlanks(myNoun, myAdjective, myVerb, myAdverb) {
     var result = "";
@@ -73,6 +74,7 @@ var chars = [...str];
 console.log(chars); // ['h', 'e',' l',' l', 'o']
 
 /*----------  MATH  ----------*/
+
 const arrMax = arr => Math.max(...arr);
 // IS THE SAME AS
 arrMax = function(arr){
@@ -553,6 +555,30 @@ Math.floor(Math.random() * 50); //rounded random number between 0 and 50
 var hello = 'Hello World';
 console.log(hello[6]); // Output: W  Sting === array 0_0
 console.log(hello.length); // Output: 11 
+
+/*----------  LOGIC  ----------*/
+'Y' != 'y' // true
+
+"1" == 1 // true
+"1" === 1 // false
+
+0 == false // true 
+0 === false // false
+
+"1" == true // true 
+
+// =DDD
+null > 0 //false
+null > 0 //false
+null >= 0 //true
+null <= 0 //true
+null == 0 //false
+null === 0 //false
+
+//NaN stands for "Not-A-Number" and it's often returned indicating an error with number operations. 
+"hello"/5 // Nan
+Math.sqrt(-10) // Nan
+
 
 /*----------  Import/export  ----------*/
 
