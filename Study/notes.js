@@ -22,6 +22,26 @@ function wordBlanks(myNoun, myAdjective, myVerb, myAdverb) {
   }
 wordBlanks("dog", "big", "ran", "quickly");
 
+//function expression. When function inside the variable. It's an anonymous function
+//Function declarations are hoisted and loaded before the script is actually run. 
+//Function expressions are not hoisted Мы не можем вызвать функцию выше нее, если функция expression
+var catSays = function(max) { 
+  // code here 
+};
+var doSomething = function addOne(y) {
+	return y + 1;
+  };
+doSomething(5); //Returns: 6
+
+function movies(messageFunction, name) {
+	messageFunction(name);
+  }
+  
+  // call the movies function, pass in the function and name of movie (function as argument)
+  movies(function displayFavorite(movieName) {
+	console.log("My favorite movie is " + movieName);
+  }, "Finding Nemo"); //My favorite movie is Finding Nemo
+
 
 /*----------  RETURN  ----------*/
 var orderCount = 0;
@@ -45,7 +65,21 @@ takeOrder('pepperoni', 'regular');
 takeOrder('pesto', 'thin');
 
 
+function square(x) {
+	return x * x;
+}
+  
+function subtractFour(x) {
+	return square(x) - 4;
+}
+  
+console.log(subtractFour(5)); //21
+
+var sum = subtractFour(5); // call the "add" function and store the returned value in the "sum" variable
+var something = doSomething(sum);
+
 /*----------  ARRAYS  ----------*/
+var mixedData = ["abcd", 1, true, undefined, null, "all the things"];
 var myArray = [["girls", 2], ["cup", 1]];
 var myArray = [1,2,3];
 var myData = myArray[0];
@@ -53,10 +87,21 @@ myArray[0] = 3;
 var myArray = [[1,2,3], [4,5,6], [7,8,9], [[10,11,12], 13, 14]];
 var myData = myArray[2][1]; // = 8
 var myArray = [["John", 23], ["cat", 2]];
+
 myArray.push(["dog", 3]); //add to array
+
 var removedFromMyArray = myArray.pop();  //delete last element from myArray, and = it to removedFromMyArray
+
 //now removedFromMyArray === ["cat", 2] and  myArray === [["John", 23]]
+
 var removedFromMyArray = myArray.shift(); //delete first element from myArray, and = it to removedFromMyArray
+
+var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
+myFish.splice(2, 0, 'drum'); // insert 'drum' at 2-index position
+// myFish is ["angel", "clown", "drum", "mandarin", "sturgeon"]
+myFish.splice(2, 1); // remove 1 item at 2-index position (that is, "drum")
+// myFish is ["angel", "clown", "mandarin", "sturgeon"]
+
 myArray.unshift(["Paul", 35]); //create a element at start of array
 console.log(amount);				// 215.9784
 console.log(amount.toFixed(2));	// "215.98"
@@ -73,6 +118,21 @@ var str = "hello";
 var chars = [...str];
 console.log(chars); // ['h', 'e',' l',' l', 'o']
 
+
+/*----------  OBJECTS  ----------*/
+var sister = {
+	name: "Sarah",
+	age: 23,
+	parents: [ "alice", "andy" ],
+	siblings: ["julia"],
+	favoriteColor: "purple",
+	pets: true,
+	paintPicture: function() { return "Sarah paints!"; }
+  };
+  
+  sister.paintPicture();// Returns: "Sarah paints!"
+
+  
 /*----------  MATH  ----------*/
 
 const arrMax = arr => Math.max(...arr);
@@ -543,6 +603,11 @@ function goBack() {
 
 window.setInterval(500, something()); //asynchronously execute a function every 500m.s.
 
+typeof "hello" // returns "string"
+typeof true // returns "boolean"
+typeof [1, 2, 3] // returns "object" (Arrays are a type of object)
+typeof function hello() { } // returns "function"
+
 /*----------  String to Array  ----------*/
 var str = "hello";
 var chars = [...str];
@@ -578,6 +643,8 @@ null === 0 //false
 //NaN stands for "Not-A-Number" and it's often returned indicating an error with number operations. 
 "hello"/5 // Nan
 Math.sqrt(-10) // Nan
+
+//undefined - If nothing to return
 
 
 /*----------  Import/export  ----------*/
