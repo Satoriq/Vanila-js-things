@@ -198,6 +198,11 @@ if (currentCard == 'Spade'){
   console.log('Found');
 }
 
+var start = 0; // when to start
+while (start < 10) { // when to stop
+  console.log(start);
+  start = start + 2; // how to get to the next item
+}
 
 
 //
@@ -378,6 +383,13 @@ function foo() {
 }
 foo();
 
+/*----------  IF / ELSE  ----------*/
+
+//Ternary operator
+conditional ? (if condition is true) : (if condition is false)
+var isGoing = true;
+var color = isGoing ? "green" : "red";
+console.log(color); //Prints: "green"
 
 
 
@@ -646,6 +658,29 @@ Math.sqrt(-10) // Nan
 
 //undefined - If nothing to return
 
+//FALSY TRUTHY
+if (1) {
+    console.log("the value is truthy");
+} else {
+    console.log("the value is falsy");
+}
+//Returns: "the value is truthy"
+//Here are some other examples of truthy values:
+true
+42
+"pizza"
+"0"
+"null"
+"undefined"
+{}
+[]
+//Here’s the list of all of the falsy values:
+the Boolean value false
+the null type
+the undefined type
+the number 0
+the empty string ""
+the odd value NaN
 
 /*----------  Import/export  ----------*/
 
