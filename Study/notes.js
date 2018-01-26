@@ -22,6 +22,10 @@ function wordBlanks(myNoun, myAdjective, myVerb, myAdverb) {
   }
 wordBlanks("dog", "big", "ran", "quickly");
 
+function myFunc() {}
+let anotherFunc = function () {}
+let yetAnother = () => {}
+
 //function expression. When function inside the variable. It's an anonymous function
 //Function declarations are hoisted and loaded before the script is actually run. 
 //Function expressions are not hoisted Мы не можем вызвать функцию выше нее, если функция expression
@@ -88,13 +92,15 @@ var myArray = [[1,2,3], [4,5,6], [7,8,9], [[10,11,12], 13, 14]];
 var myData = myArray[2][1]; // = 8
 var myArray = [["John", 23], ["cat", 2]];
 
+var pos = fruits.indexOf('Banana');// 1
+
 myArray.push(["dog", 3]); //add to array
 
-var removedFromMyArray = myArray.pop();  //delete last element from myArray, and = it to removedFromMyArray
+var removedFromMyArray = myArray.pop();  // pop - delete last element from myArray
 
 //now removedFromMyArray === ["cat", 2] and  myArray === [["John", 23]]
 
-var removedFromMyArray = myArray.shift(); //delete first element from myArray, and = it to removedFromMyArray
+var removedFromMyArray = myArray.shift(); // shift - delete first element from myArray
 
 var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
 myFish.splice(2, 0, 'drum'); // insert 'drum' at 2-index position
@@ -102,7 +108,14 @@ myFish.splice(2, 0, 'drum'); // insert 'drum' at 2-index position
 myFish.splice(2, 1); // remove 1 item at 2-index position (that is, "drum")
 // myFish is ["angel", "clown", "mandarin", "sturgeon"]
 
-myArray.unshift(["Paul", 35]); //create a element at start of array
+myArray.unshift(["Paul", 35]); // unshift - create a element at start of array
+
+var fruits = ['banana', 'apple', 'peach'];
+fruits[5] = 'mango';
+console.log(fruits[5]); // 'mango'
+console.log(Object.keys(fruits));  // ['0', '1', '2', '5']
+console.log(fruits.length); // 6
+
 console.log(amount);				// 215.9784
 console.log(amount.toFixed(2));	// "215.98"
 
@@ -129,10 +142,41 @@ var sister = {
 	pets: true,
 	paintPicture: function() { return "Sarah paints!"; }
   };
-  
+
+  //Method
   sister.paintPicture();// Returns: "Sarah paints!"
 
-  
+  delete newObject.removeThisProperty;
+//Method For in loop
+let user = {
+	username: "dan.frehner",
+	password: "abc123",
+	lovesJavascript: true,
+	favoriteNumber: 42
+};
+for(let key in user){
+	console.log(key)
+	console.log(user[key])
+}
+//username
+//"dan.frehner"
+//password
+//"abc123"
+//lovesJavascript
+//true
+//favoriteNumber
+//42
+
+var obj = {a: 1, b: 2, c: 3};
+for (const prop in obj) {
+  console.log(`obj.${prop} = ${obj[prop]}`);
+}
+// Output:
+// "obj.a = 1"
+// "obj.b = 2"
+// "obj.c = 3"
+
+
 /*----------  MATH  ----------*/
 
 const arrMax = arr => Math.max(...arr);
@@ -143,6 +187,16 @@ arrMax = function(arr){
 Math.min(1,2,3,4)// 1
 Math.min([1,2,3,4])// NaN
 Math.min(...[1,2,3,4]) /*is the same as */ Math.min(1,2,3,4)
+Math.pow(2,2) = 4;
+Math.pow(3,2) = 9;
+Math.pow(3,3) = 27;
+
+//Math also has methods that will round numbers for us. .round will round a number to the nearest whole number. 
+//.floor will always round a number down to the nearest whole number. .ceil will always round up to the nearest whole number.
+Math.round(6.5) = 7;
+Math.round(6.45) = 6;
+Math.floor(6.999) = 6;
+Math.ceil(6.0001) = 7;
 
 /*----------  Maximum value  ----------*/
 const arrMax = arr => Math.max(...arr); // arrMax([20, 10, 5, 10]) -> 20
@@ -492,6 +546,9 @@ obj1.foo();			// "obj1"
 foo.call( obj2 );		// "obj2"
 new foo();			// undefined
 
+// In web browsers, the window object is also the global object:
+console.log(this === window); // true
+
 
 /*----------  CALLBACK  ----------*/
 //Promises are a time-independent wrapper around a "future value," which lets you reason about and compose them regardless of if the value is ready or not yet. 
@@ -643,6 +700,9 @@ console.log(hello.length); // Output: 11
 0 === false // false
 
 "1" == true // true 
+
+var a = 3; var b = -2;
+console.log(!(a > 0 || b > 0)); // output: false
 
 // =DDD
 null > 0 //false
