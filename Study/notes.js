@@ -268,6 +268,23 @@ while (start < 10) { // when to stop
 arr = [1, 2, 3, 4, 5];
 
 /*----------  forEach()  ----------*/
+
+let cars = ['Ford', 'Chevrolet', 'Toyota', 'Tesla'];
+
+    //We can write the callback function itself in the parentheses as an anonymous function
+    cars.forEach(function(item, index){
+        console.log(item);
+    })
+
+    //Or we can instantiate a function to be used as a callback.
+    //Also, we do not need to use the index argument, if you don’t need it, feel free to leave it out.
+    function printNames(item){
+        console.log(item);
+    }
+
+    //And call that function in the forEach parentheses
+	cars.forEach(printNames);
+	
 //default
 for(let i = 0; i < arr.length; i++){
 	console.log(arr[i]);
@@ -291,6 +308,7 @@ sample.forEach(function (elem, index){
 })
 // es6
 sample.forEach((elem, index) => console.log(`${elem} comes at ${index}`));
+
 
 
 /*----------  map()  ----------*/
@@ -567,7 +585,17 @@ T.get('search/tweets', params, function(err, data, response) {
 	}
   });
 //This function wait for Twitter API response, then only after response, execute (callback) function
-
+function saysHelloToUser(user){
+	return 'Hello ' + user + '!';
+}
+function saysGoodbyeToUser(user){
+	return 'Goodbye ' + user + '!';
+}
+function createGreeting(user, cb){
+	return cb(user)
+}
+createGreeting("Dan", saysHelloToUser) //'Hello Dan!'
+createGreeting("Dan", saysGoodbyeToUser) //'Goodbye Dan!'
 
 
 
@@ -716,6 +744,9 @@ null === 0 //false
 "hello"/5 // Nan
 Math.sqrt(-10) // Nan
 
+//null is an object that we, the developers, set when we want to tell 
+//other developers that the item they are looking for exists, but there is no value associated with it. 
+
 //undefined - If nothing to return
 
 //FALSY TRUTHY
@@ -766,6 +797,22 @@ export default function sum(x, y) {
 
 
 /*----------  Class  ----------*/
+
+function Cat(name){
+	//the new operator creates an object, 'this'
+	this.name = name
+	this.meows = function(){
+		return 'My name is ' + this.name + " ...Meow!";
+	}
+	//return the object 'this'
+}
+
+let sam = new Cat('Sam')
+let kitty = new Cat('Kitty')
+console.log(sam.meows()) //My name is Sam ...Meow!
+console.log(kitty.meows()) //My name is Kitty ...Meow!
+
+
 //Before es6
 var Person = function(name, age) {
 	this.name = name;
@@ -785,10 +832,29 @@ class Person {
 	stringSentence() {
 		return "Hello, my name is " + this.name + " and I'm " + this.age;
 	}}
-  
 const myPerson = new Person("Manu", 23);
 console.log(myPerson.age) // 23
 console.log(myPerson.stringSentence()) // "Hello, my name is Manu and I'm 23
+
+
+/*----------  PROTOTYPE  ----------*/
+//Classes have a unique way of setting a method once and giving every object of that 
+// class access to those methods. This is called the prototype.
+// Each class has a prototype property, which we can then set methods on:
+function User(name, github){
+	this.name = name;
+	this.github = github;
+}
+
+User.prototype.introduction = function(){
+	return 'My name is ' + this.name + ', my github handle is ' + this.github + '.';
+}
+
+let dan = new User('Dan', 'tetondan');
+let riley = new Cat('Riley', 'rileyriley');
+
+console.log(dan.introduction()); //My name is Dan, my github handle is tetondan.
+console.log(riley.introduction()); //My name is Riley, my github handle is rileyriley.
 
 
 /*----------  ASYNC  ----------*/
