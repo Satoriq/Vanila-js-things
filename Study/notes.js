@@ -119,18 +119,6 @@ console.log(fruits.length); // 6
 console.log(amount);				// 215.9784
 console.log(amount.toFixed(2));	// "215.98"
 
-/*----------  SPREAD OPERATOR ...  ----------*/
-var middle = [3, 4];
-var arr = [1, 2, middle, 5, 6];
-console.log(arr);// [1, 2, [3, 4], 5, 6]
-var middle = [3, 4];
-var arr = [1, 2, ...middle, 5, 6];
-console.log(arr); // [1, 2, 3, 4, 5, 6]
-/*----------  String to Array  ----------*/
-var str = "hello";
-var chars = [...str];
-console.log(chars); // ['h', 'e',' l',' l', 'o']
-
 
 /*----------  OBJECTS  ----------*/
 var sister = {
@@ -951,16 +939,74 @@ function initMap(){
 }
 
 
+//
+// ────────────────────────────────────────────────────────────────────────────────── I ───────
+//   :::::: ES 6 : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────────────────────────────
+//
 
+var fName = 'Peter', sName = 'Smith', age = 43, job= 'photographer';
+var a = 'Hi, I\'m ' + fName + ' ' + sName + ', I\'m ' + age + ' and work as a ' + job + '.';
+// ${ var } 
+var b = `Hi, I'm ${ fName } ${ sName }, I'm ${ age } and work as a ${ job }.`;
 
+// let
+var a = 'car' ;
+{
+  let a = 5;
+  console.log(a) // 5
+}
+console.log(a) // car
 
+// const
+const c = "tree";
+console.log(c);  // tree
+c = 46;  // TypeError! 
 
+// spread ()
+let a = [3, 4, 5];
+let b = [1, 2, ...a, 6];
+console.log(b);  // [1, 2, 3, 4, 5, 6]
+var middle = [3, 4];
+var arr = [1, 2, middle, 5, 6];
+console.log(arr);// [1, 2, [3, 4], 5, 6]
+var middle = [3, 4];
+var arr = [1, 2, ...middle, 5, 6];
+console.log(arr); // [1, 2, 3, 4, 5, 6]
+		//String to Array  
+var str = "hello";
+var chars = [...str];
+console.log(chars); // ['h', 'e',' l',' l', 'o']
 
+//Destructuring
+let [ a, b, c ] = [ 6, 2, 9];
+console.log(`a=${a}, b=${b}, c=${c}`); //a=6, b=2, c=9
+function foo() { return ['car', 'dog', 6 ]; } 
+let [ x, y, z ] = foo();
+console.log(`x=${x}, y=${y}, z=${z}`);  // x=car, y=dog, z=6
 
+function bar() { return {a: 1, b: 2, c: 3}; }
+let { a, c } = bar();
+console.log(a); // 1
+console.log(c); // 3
+console.log(b); // undefined
 
+//concise parameter
+let a = 4, b = 7;
+let c = { a: a, b: b };
+let concise = { a, b };
+console.log(c, concise) // {a: 4, b: 7}, {a: 4, b: 7}
 
-
-
+//for ... of 
+let a = ['a', 'b', 'c', 'd' ];
+// ES6 
+for ( var val of a ) {
+    console.log( val );
+} // "a" "b" "c" "d"
+// pre-ES6 
+for ( var idx in a ) {
+    console.log( idx );
+}  // 0 1 2 3
 
 
 
