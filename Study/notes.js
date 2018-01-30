@@ -907,7 +907,26 @@ async.map([1, 2, 3], AsyncSquaringLibrary.square,
   function(err, result){// [1, 4, 9]
 });
 
+/*----------  await  ----------*/
+async function save(Something) {
+  try {
+    await Something.save()
+  } catch (ex) {
+    //error handling
+  }
+  console.log('success');
+} 
+
+
 /*----------  Promise  ----------*/
+Something.save()
+  .then(function() {
+    console.log('success');
+  })
+  .catch(function() {
+    //error handling
+	})
+	
 function saveToTheDb(value) {
 	return new Promise(function(resolve, reject) {
 	  db.values.insert(value, function(err, user) { 
@@ -917,7 +936,8 @@ function saveToTheDb(value) {
 		resolve(user);
 	  })
 	}
-  }
+	}
+	
   //
 // ────────────────────────────────────────────────────────────────────────────────── I ───────
 //   :::::: G O O G L E   M A P S   A P I : :  :   :    :     :        :          :
@@ -1008,9 +1028,13 @@ for ( var idx in a ) {
     console.log( idx );
 }  // 0 1 2 3
 
-
-
-
+//Dynamic Property Names
+let  city= 'sheffield_';
+let a = {
+    [ city + 'population' ]: 350000
+};
+a[ city + 'county' ] = 'South Yorkshire';
+console.log(a); // {sheffield_population: 350000, sheffield_county: 'South Yorkshire' }
 
 
 
