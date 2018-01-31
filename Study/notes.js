@@ -752,6 +752,9 @@ Math.floor(Math.random() * 50); //rounded random number between 0 and 50
 var hello = 'Hello World';
 console.log(hello[6]); // Output: W  Sting === array 0_0
 console.log(hello.length); // Output: 11 
+console.log('Hello'.toUpperCase()); 
+console.log(Math.ceil(43.8)); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
+console.log(Number.isInteger(2017)); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
 
 /*----------  LOGIC  ----------*/
 'Y' != 'y' // true
@@ -969,6 +972,7 @@ var fName = 'Peter', sName = 'Smith', age = 43, job= 'photographer';
 var a = 'Hi, I\'m ' + fName + ' ' + sName + ', I\'m ' + age + ' and work as a ' + job + '.';
 // ${ var } 
 var b = `Hi, I'm ${ fName } ${ sName }, I'm ${ age } and work as a ${ job }.`;
+// ` above the tab
 
 // let
 var a = 'car' ;
@@ -1038,7 +1042,34 @@ console.log(a); // {sheffield_population: 350000, sheffield_county: 'South Yorks
 
 
 
+/*----------  REQUESTS  ----------*/
 
+// GET
+const xhr = new XMLHttpRequest();
+const url = 'http://api-to-call.com/endpoint';
+xhr.responseType = 'json';
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === XMLHttpRequest.DONE) {
+    console.log(xhr.response);
+  }
+};
+xhr.open('GET', url);
+xhr.send();
+
+// POST
+const xhr = new XMLHttpRequest();
+const url = 'http://api-to-call.com/endpoint';
+const data = JSON.stringify({
+  id: '200'
+});
+xhr.responseType = 'json';
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === XMLHttpRequest.DONE) {
+    console.log(xhr.response);
+  }
+};
+xhr.open('POST', url);
+xhr.send(data);
 
 
 
