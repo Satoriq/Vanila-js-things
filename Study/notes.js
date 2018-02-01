@@ -26,6 +26,12 @@ function myFunc() {}
 let anotherFunc = function () {}
 let yetAnother = () => {}
 
+const getAverage = (numberOne, numberTwo) => {
+	const average = (numberOne + numberTwo) / 2;
+	return average;
+}
+console.log(getAverage(365, 27)); // Output: 196
+
 //function expression. When function inside the variable. It's an anonymous function
 //Function declarations are hoisted and loaded before the script is actually run. 
 //Function expressions are not hoisted Мы не можем вызвать функцию выше нее, если функция expression
@@ -118,6 +124,17 @@ console.log(fruits.length); // 6
 
 console.log(amount);				// 215.9784
 console.log(amount.toFixed(2));	// "215.98"
+
+//ES 6
+var arr = [1, 2, 3, 4];
+var a = arr[0];
+var b = arr[1];
+var c = arr[2];
+var d = arr[3];
+
+let [a, b, c, d] = [1, 2, 3, 4];
+console.log(a); // 1
+console.log(b); // 2
 
 
 /*----------  OBJECTS  ----------*/
@@ -469,6 +486,18 @@ var a = 42;
 })();
 console.log( a );		// 42
 
+//ES 6
+(function () {
+	var food = 'Meow Mix';
+}());
+console.log(food); // Reference Error
+
+{
+	let food = 'Meow Mix';
+};
+console.log(food); // Reference Error
+
+
 
 /*----------  CLOSURE  ----------*/
 //функция внутри функции которая видит переменные внещней функции и после исполнения функции внутреняя функция
@@ -794,6 +823,13 @@ if (1) {
     console.log("the value is falsy");
 }
 //Returns: "the value is truthy"
+if (!1) {
+    console.log("the value is truthy");
+} else {
+    console.log("the value is falsy");
+}
+//Returns: "the value is falsy"
+
 //Here are some other examples of truthy values:
 true
 42
@@ -810,6 +846,7 @@ the undefined type
 the number 0
 the empty string ""
 the odd value NaN
+if variable wasnt created
 
 /*----------  Import/export  ----------*/
 
