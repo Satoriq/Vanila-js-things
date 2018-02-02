@@ -26,6 +26,13 @@ function myFunc() {}
 let anotherFunc = function () {}
 let yetAnother = () => {}
 
+//implicit return
+const multiplyByNineFifths = (celsius) => {
+  return celsius * (9/5);
+};
+const multiplyByNineFifths = celsius => celsius * (9/5);
+
+
 const getAverage = (numberOne, numberTwo) => {
 	const average = (numberOne + numberTwo) / 2;
 	return average;
@@ -52,6 +59,31 @@ function movies(messageFunction, name) {
 	console.log("My favorite movie is " + movieName);
   }, "Finding Nemo"); //My favorite movie is Finding Nemo
 
+
+/*----------  SCOPE  ----------*/
+//let
+//loop, {}, if
+const colorOfSky = () => {
+	const dusk = true;
+	let color = 'blue'; 
+	if (dusk) {
+	  let color = 'pink';
+	  console.log(color); // pink
+	}
+	console.log(color); // blue 
+};
+colorOfSky(); // blue
+console.log(color); // undefined
+
+const cloudCount = () => {
+	let i = 2;
+	console.log(i); // 2
+	for (let i = 0; i < 10; i++) {
+	  console.log(i); // All numbers from 0 to 9
+	}
+}; 
+cloudCount();
+console.log(i); // undefined
 
 /*----------  RETURN  ----------*/
 var orderCount = 0;
@@ -125,6 +157,9 @@ console.log(fruits.length); // 6
 console.log(amount);				// 215.9784
 console.log(amount.toFixed(2));	// "215.98"
 
+console.log(fruits.slice(0, 2)); // 'banana', 'apple'
+
+
 //ES 6
 var arr = [1, 2, 3, 4];
 var a = arr[0];
@@ -135,6 +170,32 @@ var d = arr[3];
 let [a, b, c, d] = [1, 2, 3, 4];
 console.log(a); // 1
 console.log(b); // 2
+
+//let, const
+let condiments = ['Ketchup', 'Mustard', 'Soy Sauce', 'Sriracha'];
+const utensils = ['Fork', 'Knife', 'Chopsticks', 'Spork'];
+
+condiments.push('waew');//[ 'Ketchup', 'Mustard', 'Soy Sauce', 'Sriracha', 'waew' ]
+console.log(condiments);
+condiments = ['Lol']; //[ 'Lol' ]
+console.log(condiments);
+
+utensils.pop();
+console.log(utensils);//[ 'Fork', 'Knife', 'Chopsticks' ]
+utensils = ['lol2']
+console.log(utensils);//error
+
+// compare 2 arrays
+let myPlaces = ['Houston', 'Sioux Falls', 'Phoenix'];
+let friendPlaces = ['Sioux Falls', 'Missoula', 'Buffalo'];
+
+for (let myPlacesIndex = 0; myPlacesIndex < myPlaces.length; myPlacesIndex++) {
+  for (let friendPlacesIndex = 0; friendPlacesIndex < friendPlaces.length; friendPlacesIndex++) {
+		if (myPlaces[myPlacesIndex] === friendPlaces[friendPlacesIndex]) {
+      console.log(friendPlaces[friendPlacesIndex]);
+    }
+  }
+}
 
 
 /*----------  OBJECTS  ----------*/
@@ -348,6 +409,9 @@ const moreThenTwo = sample.filter(function(number){
 	}
 });
 const moreThenTwo = sample.filter(number => number > 2);
+
+let words = ['unique', 'uncanny', 'pique', 'oxymoron', 'guise'];
+let interestingWords = words.filter(word => word.length > 5);
 
 // ES6
 const retailCompany = companies.filter(company => company.category === 'Retail');
