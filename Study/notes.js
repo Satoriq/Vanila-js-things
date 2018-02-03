@@ -206,11 +206,42 @@ var sister = {
 	siblings: ["julia"],
 	favoriteColor: "purple",
 	pets: true,
-	paintPicture: function() { return "Sarah paints!"; }
+	paintPicture: function() { return "Sarah paints!"; },
+	//es6
+	sayGoodbye() {
+	  return 'Goodbye!';
+	}
   };
+
+//getters and setters
+let person = {
+  _name: 'Lu Xun',
+  _age: 137,
+  set age(newAge) {
+    if(typeof newAge === 'number'){
+      this._age = newAge;
+    } else {
+      return 'Invalid input';
+    }
+  },
+  get age() {
+    console.log(`${this._name} is ${this._age} years old.`);
+    return this._age;
+  }
+};
+person.age = 'Thirty-nine'; // should be error
+person.age = 39; // assign new value to age
+console.log(person.age); //39
 
   //Method
   sister.paintPicture();// Returns: "Sarah paints!"
+
+  //select
+  sister.name === sister['name']
+  //add new key-value
+  sister.subNames = ['Mirai', 'Akame'];   ===    sister['subNames'] = ['Mirai', 'Akame'];
+  //change 
+  sister.subNames = ['Akame'];
 
   delete newObject.removeThisProperty;
 //Method For in loop
