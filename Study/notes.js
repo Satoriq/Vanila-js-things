@@ -214,6 +214,9 @@ var sister = {
   };
 
 //getters and setters
+// set age(newAge) Когда мы присваиваем(set) person.age = 'Something' то оно выполняет функцию которая при set
+// get age() Когда мы берем(get) , person.age; выполняется функция которая при get
+// _name  _  underscore indicate these properties should not be accessed directly. 
 let person = {
   _name: 'Lu Xun',
   _age: 137,
@@ -1006,6 +1009,41 @@ const myPerson = new Person("Manu", 23);
 console.log(myPerson.age) // 23
 console.log(myPerson.stringSentence()) // "Hello, my name is Manu and I'm 23
 
+//Method Calls, get, set
+class Surgeon {
+	constructor(name, department) {
+	  this._name = name;
+	  this._department = department;
+	  this._remainingVacationDays = 20;
+	}
+	
+	get name(){
+	  return this._name;
+	}
+	
+	get department(){
+	  return this._department;
+	}
+	
+	get remainingVacationDays(){
+	  return this._remainingVacationDays;
+	}
+	
+	takeVacationDays(daysOff){
+	  this._remainingVacationDays -= daysOff
+	}
+  }
+  
+  const surgeonCurry = new Surgeon('Curry', 'Cardiovascular');
+  const surgeonDurant = new Surgeon('Durant', 'Orthopedics');
+  console.log(surgeonCurry.name);//Curry
+  surgeonCurry.takeVacationDays(3);
+  console.log(surgeonCurry.remainingVacationDays);//17
+
+//Inheritance
+  // 1 parent class properties: name, behavior method: .incrementBehavior()
+  // first child properties: name, behavior method: .incrementBehavior()
+  // second child  properties: name, behavior, usesLitter  method: .incrementBehavior()
 
 /*----------  PROTOTYPE  ----------*/
 //Classes have a unique way of setting a method once and giving every object of that 
