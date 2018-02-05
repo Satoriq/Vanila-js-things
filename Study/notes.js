@@ -1040,10 +1040,58 @@ class Surgeon {
   surgeonCurry.takeVacationDays(3);
   console.log(surgeonCurry.remainingVacationDays);//17
 
-//Inheritance
+	//Inheritance
   // 1 parent class properties: name, behavior method: .incrementBehavior()
   // first child properties: name, behavior method: .incrementBehavior()
-  // second child  properties: name, behavior, usesLitter  method: .incrementBehavior()
+	// second child  properties: name, behavior, usesLitter  method: .incrementBehavior()
+	
+	// extends - добавляет методы в чайлд класс из родительского класа
+	// super - дает аргумент в родительский класс
+	// static - доступ к методу только от родителя
+	class HospitalEmployee {
+		constructor(name) {
+			this._name = name;
+			this._remainingVacationDays = 20;
+		}
+		
+		get name() {
+			return this._name;
+		}
+		
+		get remainingVacationDays() {
+			return this._remainingVacationDays;
+		}
+		
+		takeVacationDays(daysOff) {
+			this._remainingVacationDays -= daysOff;
+		}
+		
+		static generatePassword() {
+			return Math.floor(Math.random() * 10000);
+		}
+	}
+	
+	class Nurse extends HospitalEmployee {
+		constructor(name, certifications) {
+			super(name);
+			this._certifications = certifications;
+		} 
+		
+		get certifications() {
+			return this._certifications;
+		}
+		
+		addCertification(newCertification) {
+			this.certifications.push(newCertification);
+		}
+	}
+	
+	const nurseOlynyk = new Nurse('Olynyk', ['Trauma','Pediatrics']);
+	nurseOlynyk.takeVacationDays(5);
+	console.log(nurseOlynyk.remainingVacationDays);
+	nurseOlynyk.addCertification('Genetics');
+	console.log(nurseOlynyk.certifications);
+
 
 /*----------  PROTOTYPE  ----------*/
 //Classes have a unique way of setting a method once and giving every object of that 
