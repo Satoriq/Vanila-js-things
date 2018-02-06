@@ -743,8 +743,6 @@ function greetUser(customerName, sex)  {
  ​// And this is the output​ : Hello, Mr. Bill Gates
 	 
 
-
-
 /*----------  APPLY  ----------*/
 //Note that we have added an extra parameter for the callback object, called "callbackObj"​
 ​function getUserInput(firstName, lastName, callback, callbackObj)  {
@@ -760,6 +758,68 @@ getUserInput ("Some ", "One", clientData.setUserName, clientData);
 ​// the fullName property on the clientData was correctly set​
 console.log (clientData.fullName); // Some One
 
+/*----------  GENERATORS  ----------*/
+function * downToOne(n) {
+  for (let i = n; i > 0; --i) {
+    yield i;
+  }
+}
+
+// Yield Example
+function * idMaker() {
+  var index = 0;
+  while (index < 2) {
+    yield index;
+    index = index + 1;
+  }
+}
+var gen = idMaker();
+gen.next().value; // 0
+gen.next().value; // 1
+gen.next().value; // undefined
+
+// Yield * 
+function * genB(i) {
+  yield i + 1;
+  yield i + 2;
+  yield i + 3;
+}
+function * genA(i) {
+  yield i;
+  yield* genB(i);
+  yield i + 10;
+}
+
+var gen = genA(10);
+gen.next().value; // 10
+gen.next().value; // 11
+gen.next().value; // 12
+gen.next().value; // 13
+gen.next().value; // 20
+
+/*----------  Anamorphisms  ----------*/
+function downToOne(n) {
+  const list = [];
+
+  for (let i = n; i > 0; --i) {
+    list.push(i);
+  }
+
+  return list;
+}
+downToOne(5)
+//=> [ 5, 4, 3, 2, 1 ]
+[...downToOne(5)] //[ 5, 4, 3, 2, 1 ]
+
+//Catamorphisms
+function product(list) {
+  let product = 1;
+  for (const n of list) {
+    product = product * n;
+  }
+  return product;
+}
+product(downToOne(5)) // 120
 
 //
 // ────────────────────────────────────────────────────────────────────────────────── I ──────────
@@ -1091,6 +1151,17 @@ class Surgeon {
 	console.log(nurseOlynyk.remainingVacationDays);
 	nurseOlynyk.addCertification('Genetics');
 	console.log(nurseOlynyk.certifications);
+
+//Static 
+class Repo{
+  static getName() {
+    return "Repo name"
+  }
+}
+//Note that we did not have to create an instance of the Repo class
+console.log(Repo.getName()) //Repo name
+let r = new Repo();
+console.log(r.getName()) //Uncaught TypeError: repo.getName is not a function
 
 
 /*----------  PROTOTYPE  ----------*/
