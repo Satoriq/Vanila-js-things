@@ -649,6 +649,87 @@ fred.login( "fred", "12Battery34!" );//обращаемся как к обьек
  // -- and it can still access username and password inner variables.
 
 
+//Exporting
+module.exports = 1;
+module.exports = { foo: 'bar' };
+module.exports = ['foo', 'bar'];
+module.exports = function bar () {};
+//Named Exports
+export let name = 'David';
+export let age  = 25;​​
+//exporting a list
+function sumTwo(a, b) {
+	return a + b;
+}
+function sumThree(a, b, c) {
+	return a + b + c;
+}
+export { sumTwo, sumThree };
+//export default bindings
+function sumTwo(a, b) {
+	return a + b;
+}
+function sumThree(a, b, c) {
+	return a + b + c;
+}
+let api = {
+	sumTwo,
+	sumThree
+};
+export default api;
+
+//Importing
+import React from 'react';
+const { Component, PropTypes } = React;
+//===
+import React, { Component, PropTypes } from 'react';
+
+import {
+	sumTwo as addTwoNumbers,
+	sumThree as sumThreeNumbers
+} from 'math/addition';
+
+// foos.js
+export { foo as default, foo1, foo2 };
+
+import foo, { foo1, foo2 } from 'foos';
+
+/*----------  Parameters  ----------*/
+//Default Parameters
+function addTwoNumbers(x, y) {
+	x = x || 0;
+	y = y || 0;
+	return x + y;
+}
+//es6
+function addTwoNumbers(x=0, y=0) {
+	return x + y;
+}
+addTwoNumbers(2, 4); // 6
+addTwoNumbers(2); // 2
+addTwoNumbers(); // 0
+
+//Rest Parameters
+
+function logArguments() {
+	for (var i=0; i < arguments.length; i++) {
+			console.log(arguments[i]);
+	}
+}
+
+function logArguments(...args) {
+	for (let arg of args) {
+			console.log(arg);
+	}
+}
+
+//Named Parameters
+function initializeCanvas(options) {
+	var height = options.height || 600;
+	var width  = options.width  || 400;
+	var lineStroke = options.lineStroke || 'black';
+}
+
 /*----------  PROTOTYPES  ----------*/
 var foo = {
 	a: 42
@@ -1028,6 +1109,20 @@ export default function sum(x, y) {
   const result = sum(1, 2);
   console.log(result) // 3
 
+
+/*----------  .includes( ) ----------*/
+var string = 'food';
+var substring = 'foo';
+console.log(string.indexOf(substring) > -1);
+
+/*----------  .repeat( ) ----------*/
+function repeat(string, count) {
+	var strings = [];
+	while(strings.length < count) {
+			strings.push(string);
+	}
+	return strings.join('');
+}
 
 /*----------  Class  ----------*/
 
