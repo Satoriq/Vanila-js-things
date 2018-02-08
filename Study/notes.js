@@ -694,6 +694,64 @@ export { foo as default, foo1, foo2 };
 
 import foo, { foo1, foo2 } from 'foos';
 
+
+//Example
+let Airplane = {}; //make object(module)
+Airplane.myAirplane = "StarJet"; //set property
+module.exports = Airplane; // export object(module)
+//ES 6
+export default Airplane;
+
+const Airplane = require('./1-airplane.js');
+function displayAirplane(){
+  console.log(Airplane.myAirplane);
+}
+displayAirplane()
+
+//ES 6 export/import examples
+let Airplane = {};
+Airplane.availableAirplanes = [
+{
+  name: 'AeroJet',
+  fuelCapacity: 800
+ }, 
+ {name: 'SkyJet',
+  fuelCapacity: 500
+ }
+];
+export default Airplane;
+
+import Airplane from './airplane';
+function displayFuelCapacity() {
+  Airplane.availableAirplanes.forEach(function(element){
+  console.log('Fuel Capacity of ' + element.name + ': ' + element.fuelCapacity);
+  });
+}
+displayFuelCapacity();
+
+//Named export
+let availableAirplanes = [
+	{
+		name: 'AeroJet',
+		fuelCapacity: 800,
+		availableStaff: ['pilots', 'flightAttendants', 'engineers', 'medicalAssistance', 'sensorOperators']
+	 }, 
+	 {name: 'SkyJet',
+		fuelCapacity: 500,
+		availableStaff: ['pilots', 'flightAttendants'] 
+	 }
+	];
+	let flightRequirements = {
+		requiredStaff: 4
+	}
+	function meetsStaffRequirements(availableStaff, requiredStaff){
+		if (availableStaff.length >= requiredStaff)
+		return true
+	else 
+		return false
+	}
+	export {availableAirplanes, flightRequirements, meetsStaffRequirements};
+
 /*----------  Parameters  ----------*/
 //Default Parameters
 function addTwoNumbers(x, y) {
@@ -1087,6 +1145,14 @@ the empty string ""
 the odd value NaN
 if variable wasnt created
 
+/*----------  BABEL  ----------*/
+"build": "babel src -d lib"
+babel — The Babel command call responsible for transpiling code.
+src — Instructs Babel to transpile all JavaScript code inside the src directory.
+-d — Instructs Babel to write the transpiled code to a directory.
+lib — Babel writes the transpiled code to a directory called lib.
+
+to open .babelrc  form terminal, type nano .babelrc
 /*----------  Import/export  ----------*/
 
 // coolNumber.js
