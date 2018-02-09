@@ -752,6 +752,23 @@ let availableAirplanes = [
 	}
 	export {availableAirplanes, flightRequirements, meetsStaffRequirements};
 
+	import {availableAirplanes, flightRequirements, meetsStaffRequirements} from './airplane';
+	function displayFuelCapacity() {
+		availableAirplanes.forEach(function(element){
+		console.log('Fuel Capacity of ' + element.name + ': ' + element.fuelCapacity);
+		});
+	}
+	displayFuelCapacity();
+	function displayStaffStatus(){
+		availableAirplanes.forEach(function(element){
+			console.log(element.name + 'meets staff requirements: ' + meetsStaffRequirements(element.availableStaff, flightRequirements.requiredStaff));
+		})
+	}
+	displayStaffStatus()
+
+//export as
+export { availableAirplanes as aircrafts, meetsSpeedRangeRequirements as meetsSpeedRangeReqs };
+import { aircrafts, meetsSpeedRangeReqs} from './airplane';
 /*----------  Parameters  ----------*/
 //Default Parameters
 function addTwoNumbers(x, y) {
@@ -1521,6 +1538,110 @@ xhr.onreadystatechange = function() {
 xhr.open('POST', url);
 xhr.send(data);
 
+
+
+// Include data for accessing Google APIs
+const apiKey = 'awadwaft5gdr5gergeSUP2CH';
+const projection = 'FULL';
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+const $inputField = $('#input');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+function expandUrl() {
+	const urlToExpand = url + '?key=' + apiKey + '&shortUrl=' + $inputField.val();
+  const xhr = new XMLHttpRequest();
+  xhr.responseType = 'json';
+  xhr.onreadystatechange = function(){
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+  		console.log(xhr.response);
+      $responseField.append('<p>Your expanded url is: </p><p>' + xhr.response.longUrl + '</p>');
+		}
+  };
+  xhr.open('GET', urlToExpand);
+	xhr.send();
+	//or jquery(dont)
+	const urlToExpand = url + '?key=' + apiKey + '&shortUrl=' + $inputField.val();
+  $.ajax({
+    url: urlToExpand,
+    type: 'GET',
+    dataType: 'json',
+    success(response){
+      $responseField.append('<p>Your expanded url is: </p><p>' + response.longUrl + '</p>');
+    },
+    error(jqXHR, status, errorThrown){
+      console.log(jqXHR);
+    }
+  });
+}
+
+function shortenUrl() {
+	const urlWithKey = url + '?key=' +apiKey; 
+  const urlToShorten = $inputField.val();
+  const data = JSON.stringify({longUrl: urlToShorten});
+  const xhr = new XMLHttpRequest();
+  xhr.responseType = 'json';
+  xhr.onreadystatechange = function(){
+    if(xhr.readyState === XMLHttpRequest.DONE){
+      $responseField.append('<p>Your shortened url is: </p><p>' + xhr.response.id + '</p>');
+    }
+  }
+  xhr.open('POST', urlWithKey);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(data);
+	//or jquery(dont)
+	const urlWithKey = url + '?key=' +apiKey; 
+  const urlToShorten = $inputField.val();
+  $.ajax({
+  url: urlWithKey,
+  type: 'POST',
+  data: JSON.stringify({longUrl: urlToShorten}),
+  dataType: 'json',
+  contentType:'application/json',
+  success(response){
+    $responseField.append('<p>Your shortened url is: </p><p>' + response.id + '</p>');
+  },
+  error(jqXHR, status, errorThrown){
+    console.log(jqXHR);
+  }
+});
+	//or $.get or $.getJSON and delete 'json' 
+	$.get(urlToExpand, response => {
+		$responseField.append('<p>Your expanded url is: </p><p>' + response.longUrl + '</p>');
+	}, 'json');
+}
+
+function expand() {
+  $responseField.empty();
+  expandUrl();
+  return false;
+}
+
+function shorten() {
+  $responseField.empty();
+  shortenUrl();
+  return false;
+}
+
+// Call functions on submit
+$expandButton.click(expand);
+$shortenButton.click(shorten);
+
+
+//ES 6 
+fetch('https://api-to-call.com/endpoint').then(
+	response => { 
+		if (response.ok) {
+		 return response.json(); 
+		}
+		throw new Error('Request failed!');
+	}, networkError => {
+		console.log(networkError.message);
+	}).then(jsonResponse => jsonResponse);
 
 
 
