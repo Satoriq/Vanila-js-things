@@ -1,19 +1,3 @@
-var myName;
-myName = "My name is " + myName + " and I am swell!";
-myName = `My name is ${myName}`;
-
-var someAdjective = "...";
-var myStr = "Learning to code is ";
-myStr += someAdjective;
-
-var firstLetterOfLastName = "";
-var lastName = "Lovelace";
-firstLetterOfLastName = lastName[0];
-
-var lastName = "LovePeace";
-var secondToLastLetterOfLastName = lastName[lastName.length -2];
-
-
 /*----------  Functions  ----------*/
 function wordBlanks(myNoun, myAdjective, myVerb, myAdverb) {
     var result = "";
@@ -278,6 +262,16 @@ for (const prop in obj) {
 
 
 /*----------  MATH  ----------*/
+//Операнд – то, к чему применяется оператор. Например: 5 * 2 – оператор умножения с левым и правым операндами.
+//Унарным называется оператор который применяется к одному операнду. Например, оператор унарный минус "-" меняет знак числа на противоположный:
+x = -x;
+//Бинарным называется оператор, который применяется к двум операндам.
+alert( y - x );
+
+//Инкремент ++
+//Декремент --
+//Инкремент/декремент можно применить только к переменной.
+
 
 const arrMax = arr => Math.max(...arr);
 // IS THE SAME AS
@@ -318,20 +312,6 @@ const NEXT_THING = 21; //Constant in ES6
 
 // variable within a function without var === global variable  global = 5;
 
-
-function timesFive(num) {  //return number multiplied by 5
-  return num * 5;
-}
-result = timesfive(3);
-
-const TAX_RATE = 0.08;
-function calculateFinalPurchaseAmount(amt) {
-	amt = amt + (amt * TAX_RATE);
-	return amt;
-}
-var amount = 99.99;
-amount = calculateFinalPurchaseAmount(amount);
-console.log( amount.toFixed(2));	
 
 /*----------  WHILE  ----------*/
 while (amount<bank_balance){
@@ -1075,6 +1055,19 @@ function goBack() {
 //   :::::: F E A T U R E S : :  :   :    :     :        :          :
 // ────────────────────────────────────────────────────────────────────────────────────────────
 //
+
+// engines 
+V8 – in Chrome and Opera.
+SpiderMonkey – in Firefox.
+
+// async/defer
+<script src="1.js" async></script> -- первый выполнится тот кто первый загрузится
+<script src="2.js" async></script> -- также при async браузер не останавливает обработку страницы
+
+<script src="1.js" defer></script> -- то же что и async, только выполняться будут по порядку
+<script src="2.js" defer></script> -- даже если второй загрузится быстрее, также defer выполниться
+--только когда весь HTML будет обработан браузером
+
 
 window.setInterval(500, something()); //asynchronously execute a function every 500m.s.
 
