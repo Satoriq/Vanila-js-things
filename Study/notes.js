@@ -262,16 +262,17 @@ for (const prop in obj) {
 
 
 /*----------  MATH  ----------*/
-//Операнд – то, к чему применяется оператор. Например: 5 * 2 – оператор умножения с левым и правым операндами.
-//Унарным называется оператор который применяется к одному операнду. Например, оператор унарный минус "-" меняет знак числа на противоположный:
+//Операнд(operand) – то, к чему применяется оператор. Например: 5 * 2 – оператор умножения с левым и правым операндами.
+//Унарным(unary) называется оператор который применяется к одному операнду. Например, оператор унарный минус "-" меняет знак числа на противоположный:
 x = -x;
-//Бинарным называется оператор, который применяется к двум операндам.
+//Бинарным(binary) называется оператор, который применяется к двум операндам.
 alert( y - x );
+“unary”, “binary”, “operand”
 
 //Инкремент ++
 //Декремент --
+//Exponentiation ** alert( 2 ** 3 ); // 8  (2 * 2 * 2)
 //Инкремент/декремент можно применить только к переменной.
-
 
 const arrMax = arr => Math.max(...arr);
 // IS THE SAME AS
@@ -546,7 +547,10 @@ var isGoing = true;
 var color = isGoing ? "green" : "red";
 console.log(color); //Prints: "green"
 
+let accessAllowed = (age > 18) ? true : false;
 
+if (hour < 10 || hour > 18 || isWeekend)
+if (!(age >= 14 && age <= 90)) 
 
 /*----------  IIFE  ----------*/
 (function sum(a, b) {
@@ -1068,8 +1072,10 @@ SpiderMonkey – in Firefox.
 <script src="2.js" defer></script> -- даже если второй загрузится быстрее, также defer выполниться
 --только когда весь HTML будет обработан браузером
 
-
-window.setInterval(500, something()); //asynchronously execute a function every 500m.s.
+//types
+String(value)
+Number(value) or +value
+Boolean(value) or !!value
 
 typeof "hello" // returns "string"
 typeof true // returns "boolean"
