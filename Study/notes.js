@@ -274,6 +274,8 @@ alert( y - x );
 //Exponentiation ** alert( 2 ** 3 ); // 8  (2 * 2 * 2)
 //Инкремент/декремент можно применить только к переменной.
 
+//Iteration - a single execution of the loop body
+
 const arrMax = arr => Math.max(...arr);
 // IS THE SAME AS
 arrMax = function(arr){
@@ -315,12 +317,6 @@ const NEXT_THING = 21; //Constant in ES6
 
 
 /*----------  WHILE  ----------*/
-while (amount<bank_balance){
-  amount = amount + PHONE_PRICE;
-  if (amount < SPENDING_THRESHOLD) {
-    amount = amount + ACCESSORY_PRICE;
-  }
-}
 //sorted out array with random number, and wait for spade
 var cards = ['Diamond', 'Spade', 'Heart', 'Club'];
 var currentCard = 'Heart';
@@ -346,7 +342,7 @@ while (start < 10) { // when to stop
 // ────────────────────────────────────────────────────────────────────────────────────────────
 //
 
-arr = [1, 2, 3, 4, 5];
+
 
 /*----------  forEach()  ----------*/
 
@@ -366,6 +362,7 @@ let cars = ['Ford', 'Chevrolet', 'Toyota', 'Tesla'];
     //And call that function in the forEach parentheses
 	cars.forEach(printNames);
 	
+arr = [1, 2, 3, 4, 5];
 //default
 for(let i = 0; i < arr.length; i++){
 	console.log(arr[i]);
@@ -499,11 +496,12 @@ switch (groceryItem) {
     break;
 }
 
-//Example of implicit coercion:
-var a = "42";
-var b = a * 1;	// "42" implicitly coerced to 42 here
-a;				// "42"
-b;				// 42 -- the number!
+case 3:                    // (*)
+case 5:                    // (**)
+	alert('Неверно!');// (*)
+	alert('Немного ошиблись, бывает.'); // (**)
+	break;
+
 
 var a = [1,2,3];
 var b = [1,2,3];
@@ -511,33 +509,6 @@ var c = "1,2,3";
 a == c;		// true
 b == c;		// true
 a == b;		// false  wtf
-
-var a = 2;
-foo();					// works because `foo()`
-						// declaration is "hoisted"
-function foo() {
-	a = 3;
-	console.log( a );	// 3
-	var a;				// declaration is "hoisted"
-						// to the top of `foo()`
-}
-console.log( a );	// 2
-
-function foo() {
-	var a = 1;
-	function bar() {
-		var b = 2;
-		function baz() {
-			var c = 3;
-			console.log( a, b, c );	// 1 2 3
-		}
-		baz();
-		console.log( a, b );		// 1 2
-	}
-	bar();
-	console.log( a );				// 1
-}
-foo();
 
 /*----------  IF / ELSE  ----------*/
 
@@ -551,6 +522,21 @@ let accessAllowed = (age > 18) ? true : false;
 
 if (hour < 10 || hour > 18 || isWeekend)
 if (!(age >= 14 && age <= 90)) 
+
+//continue
+for (let i = 0; i < 10; i++) {
+  // if true, skip the remaining part of the body
+  if (i % 2 == 0) continue;
+  alert(i); // 1, then 3, 5, 7, 9
+}
+
+let n = input;
+
+if (n>2){
+	while(n%n==0){
+		return n;
+	}
+}
 
 /*----------  IIFE  ----------*/
 (function sum(a, b) {
