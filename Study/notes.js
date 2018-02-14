@@ -6,6 +6,9 @@ function wordBlanks(myNoun, myAdjective, myVerb, myAdverb) {
   }
 wordBlanks("dog", "big", "ran", "quickly");
 
+function showMessage(from, text = "no text given") //Default value if second argument wasn't passed
+function showMessage(from, text = anotherFunction())
+
 function myFunc() {}
 let anotherFunc = function () {}
 let yetAnother = () => {}
@@ -524,9 +527,9 @@ if (hour < 10 || hour > 18 || isWeekend)
 if (!(age >= 14 && age <= 90)) 
 
 //continue
-for (let i = 0; i < 10; i++) {
+nextPrime: for (let i = 0; i < 10; i++) {
   // if true, skip the remaining part of the body
-  if (i % 2 == 0) continue;
+	if (i % 2 == 0) continue nextPrime;
   alert(i); // 1, then 3, 5, 7, 9
 }
 
@@ -1067,6 +1070,21 @@ typeof "hello" // returns "string"
 typeof true // returns "boolean"
 typeof [1, 2, 3] // returns "object" (Arrays are a type of object)
 typeof function hello() { } // returns "function"
+
+//Fibonacci
+function fib(n) {
+  var a = 1,
+    b = 1;
+  for (var i = 3; i <= n; i++) {
+    var c = a + b;
+    a = b;
+    b = c;
+  }
+  return b;
+}
+alert(fib(20)); // 6765
+alert(fib(75)); // 2111485077978050
+alert(fib(222)); // 1.1111460156937784e+46
 
 /*----------  String to Array  ----------*/
 var str = "hello";
