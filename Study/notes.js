@@ -13,6 +13,8 @@ function myFunc() {}
 let anotherFunc = function () {}
 let yetAnother = () => {}
 
+
+
 //implicit return
 const multiplyByNineFifths = (celsius) => {
   return celsius * (9/5);
@@ -44,7 +46,9 @@ function movies(messageFunction, name) {
   // call the movies function, pass in the function and name of movie (function as argument)
   movies(function displayFavorite(movieName) {
 	console.log("My favorite movie is " + movieName);
-  }, "Finding Nemo"); //My favorite movie is Finding Nemo
+	}, "Finding Nemo"); //My favorite movie is Finding Nemo
+
+
 
 
 /*----------  SCOPE  ----------*/
@@ -1085,6 +1089,22 @@ function fib(n) {
 alert(fib(20)); // 6765
 alert(fib(75)); // 2111485077978050
 alert(fib(222)); // 1.1111460156937784e+46
+
+//Recursion
+function sumTo(n){
+	if(n != 1){
+		return n + sumTo(n-1); 
+	} else{
+			return n;
+	}
+}
+
+//Factorial
+function factorial(n) {
+  return (n != 1) ? n * factorial(n - 1) : 1;
+}
+console.log(factorial(7)); //5040
+
 
 /*----------  String to Array  ----------*/
 var str = "hello";
