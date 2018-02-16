@@ -1730,10 +1730,33 @@ async function shortenUrl() {
 }
 
 
+//
+// ────────────────────────────────────────────────────────────────────────────────── I ───────
+//   :::::: T E S T I N G... : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────────────────────────────
+//
+describe("pow", function() {
 
+  function makeTest(x) {
+    let expected = x * x * x;
+    it(`${x} in the power 3 is ${expected}`, function() {
+      assert.equal(pow(x, 3), expected);
+    });
+  }
 
+  for (let x = 1; x <= 5; x++) {
+    makeTest(x);
+  }
 
-
+});
+// Output 
+	pow
+raises x to power n
+‣1 in the power 3 is 1
+‣2 in the power 3 is 8 
+‣3 in the power 3 is 27 
+‣4 in the power 3 is 64 
+‣5 in the power 3 is 125
 
 
 
