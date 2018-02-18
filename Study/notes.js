@@ -150,7 +150,14 @@ console.log(amount.toFixed(2));	// "215.98"
 
 console.log(fruits.slice(0, 2)); // 'banana', 'apple'
 
-
+alert(str.substring(0,1)); // символы с позиции 0 по 1 не включая 1.
+str = str.substr(2,4); // со 2-й позиции 4 символа
+alert(str.substring(2)); // символы с позиции 2 до конца
+alert( "Widget with id".includes("Widget") ); // true
+alert( "Midget".includes("id", 3) ); // false, from position 3 there is no "id"
+alert( "Widget".startsWith("Wid") ); // true, "Widget" starts with "Wid"
+alert( "Widget".endsWith("get") );   // true, "Widget" ends with "get"
+str.trim() // removes (“trims”) spaces from the beginning and end of the string.
 //ES 6
 var arr = [1, 2, 3, 4];
 var a = arr[0];
@@ -187,6 +194,8 @@ for (let myPlacesIndex = 0; myPlacesIndex < myPlaces.length; myPlacesIndex++) {
     }
   }
 }
+
+
 
 
 /*----------  OBJECTS  ----------*/
@@ -321,9 +330,17 @@ Math.round(6.5) = 7;
 Math.round(6.45) = 6;
 Math.floor(6.999) = 6;
 Math.ceil(6.0001) = 7;
+alert( parseInt('12px') ) // 12, ошибка на символе 'p'
+alert( parseFloat('12.3.4') ) // 12.3, ошибка на второй точке
 
 /*----------  Maximum value  ----------*/
 const arrMax = arr => Math.max(...arr); // arrMax([20, 10, 5, 10]) -> 20
+
+/*----------  Random from min to max  ----------*/
+function random(min, max) {
+  return min + Math.random() * (max - min);
+}
+
 
 /*----------  Sum of all values  ----------*/
 const arrSum = arr => arr.reduce((a,b) => a + b, 0) // arrSum([20, 10, 5, 10]) -> 45
@@ -1125,6 +1142,10 @@ function factorial(n) {
 }
 console.log(factorial(7)); //5040
 
+/*----------  is number?  ----------*/
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
 
 /*----------  String to Array  ----------*/
 var str = "hello";
