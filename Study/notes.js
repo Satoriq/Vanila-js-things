@@ -333,6 +333,10 @@ Math.ceil(6.0001) = 7;
 alert( parseInt('12px') ) // 12, ошибка на символе 'p'
 alert( parseFloat('12.3.4') ) // 12.3, ошибка на второй точке
 
+//round the number to n-th digit after the decimal
+let num = 1.23456;
+alert( Math.floor(num * 100) / 100 ); // 1.23456 -> 123.456 -> 123 -> 1.23
+
 /*----------  Maximum value  ----------*/
 const arrMax = arr => Math.max(...arr); // arrMax([20, 10, 5, 10]) -> 20
 
@@ -1126,6 +1130,31 @@ function fib(n) {
 alert(fib(20)); // 6765
 alert(fib(75)); // 2111485077978050
 alert(fib(222)); // 1.1111460156937784e+46
+
+//sieve of Eratosthenes
+let arr = [];
+for (let i = 2; i < 100; i++) {
+  arr[i] = true
+}
+let p = 2;
+do {
+  for (i = 2 * p; i < 100; i += p) {
+    arr[i] = false;
+  }
+  for (i = p + 1; i < 100; i++) {
+    if (arr[i]) break;
+  }
+  p = i;
+} while (p * p < 100);
+
+let sum = 0;
+for (i = 0; i < arr.length; i++) {
+  if (arr[i]) {
+    sum += i;
+  }
+}
+console.log(sum)
+
 
 //Recursion
 function sumTo(n){
