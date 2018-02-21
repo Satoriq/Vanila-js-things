@@ -121,6 +121,12 @@ var myArray = [[1,2,3], [4,5,6], [7,8,9], [[10,11,12], 13, 14]];
 var myData = myArray[2][1]; // = 8
 var myArray = [["John", 23], ["cat", 2]];
 
+arr.push(...items) //– adds items to the end,
+arr.pop() //– extracts an item from the end,
+arr.shift() //– extracts an item from the beginning,
+arr.unshift(...items) //– adds items to the beginning.
+
+
 var pos = fruits.indexOf('Banana');// 1
 
 myArray.push(["dog", 3]); //add to array
@@ -139,16 +145,21 @@ myFish.splice(2, 1); // remove 1 item at 2-index position (that is, "drum")
 
 myArray.unshift(["Paul", 35]); // unshift - create a element at start of array
 
+console.log(amount);				// 215.9784
+console.log(amount.toFixed(2));	// "215.98"
+console.log(fruits.slice(0, 2)); // 'banana', 'apple'
+
 var fruits = ['banana', 'apple', 'peach'];
 fruits[5] = 'mango';
 console.log(fruits[5]); // 'mango'
 console.log(Object.keys(fruits));  // ['0', '1', '2', '5']
 console.log(fruits.length); // 6
 
-console.log(amount);				// 215.9784
-console.log(amount.toFixed(2));	// "215.98"
+// iterates over array elements
+for (let fruit of fruits) {
+  alert( fruit );
+}
 
-console.log(fruits.slice(0, 2)); // 'banana', 'apple'
 
 alert(str.substring(0,1)); // символы с позиции 0 по 1 не включая 1.
 str = str.substr(2,4); // со 2-й позиции 4 символа
@@ -296,6 +307,69 @@ for (var key in user) {
 // теперь clone - полностью независимая копия
 clone.name = "1"; // поменяли данные в clone
 alert( user.name ); // по-прежнему "2"
+
+/*----------  M A P   ----------*/
+//Map is a collection of keyed data items, just like an Object. 
+//But the main difference is that Map allows keys of any type. (like object)
+map.set('1', 'str1');   // a string key
+map.set(1, 'num1');     // a numeric key
+map.set(true, 'bool1'); // a boolean key
+//chain
+map.set('1', 'str1')
+  .set(1, 'num1')
+  .set(true, 'bool1');
+
+//Map can also use objects as keys.
+let john = { name: "John" };
+// for every user, let's store his visits count
+let visitsCountMap = new Map();
+// john is the key for the map
+visitsCountMap.set(john, 123);
+alert( visitsCountMap.get(john) ); // 123
+
+//ITERATION
+let recipeMap = new Map([
+  ['cucumber', 500],
+  ['tomatoes', 350],
+  ['onion',    50]
+]);
+// iterate over keys (vegetables)
+for (let vegetable of recipeMap.keys()) {
+  alert(vegetable); // cucumber, tomateos, onion
+}
+// iterate over [key, value] entries
+for (let entry of recipeMap) { // the same as of recipeMap.entries()
+	alert(entry); // cucumber,500 (and so on)
+
+recipeMap.forEach( (value, key, map) => {
+	alert(`${key}: ${value}`); // cucumber: 500 etc
+});
+
+/*----------  S E T   ----------*/
+//A Set is a collection of values, where each value may occur only once.
+let set = new Set();
+let john = { name: "John" };
+let pete = { name: "Pete" };
+let mary = { name: "Mary" };
+// visits, some users come multiple times
+set.add(john);
+set.add(pete);
+set.add(mary);
+set.add(john);
+set.add(mary);
+// set keeps only unique values
+alert( set.size ); // 3
+
+for (let user of set) {
+  alert(user.name); // John (then Pete and Mary)
+}
+
+//ITERATION
+set.forEach((value, valueAgain, set) => {
+  alert(value);
+});
+
+
 
 /*----------  MATH  ----------*/
 //Операнд(operand) – то, к чему применяется оператор. Например: 5 * 2 – оператор умножения с левым и правым операндами.
