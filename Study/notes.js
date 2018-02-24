@@ -294,6 +294,13 @@ for (var key in menu) {
   alert( "Ключ: " + key + " значение: " + menu[key] );
 }
 
+//Колво свойств
+for (var key in menu) {
+  counter++;
+}
+//or
+Object.keys(menu).length
+
 //clone
 var user = {
   name: "2",
@@ -307,6 +314,28 @@ for (var key in user) {
 // теперь clone - полностью независимая копия
 clone.name = "1"; // поменяли данные в clone
 alert( user.name ); // по-прежнему "2"
+//or
+Object.assign(dest[, src1, src2, src3...])
+
+
+function isEmpty(obj){
+	for(let key in obj){
+		return false;
+	}
+	return true;
+}
+
+
+let salaries = {
+		John: 100,
+		Ann: 60,
+		Pete: 130
+};
+let sum = 0;
+
+for(let key in salaries){
+	sum += salaries[key];
+}
 
 /*----------  M A P   ----------*/
 //Map is a collection of keyed data items, just like an Object. 
@@ -714,12 +743,37 @@ function makeAdder(x) {
 	  return x + y;
 	};
   }
-  var add5 = makeAdder(5);
-  var add10 = makeAdder(10);
+  let add5 = makeAdder(5);
+  let add10 = makeAdder(10);
   console.log(add5(2));  // 7
-  console.log(add10(2)); // 12
+	console.log(add10(2)); // 12
 
 
+// Counter1 = return count++, когда мы вызываем counter1 , он не выполняет всю makeCounter заново, он просто ++, т.е. не присваивает let count = 0;
+// Он ссылаеться на внешний count  и увеличивает его, но при вызове counter1, он не выполняет всю функцию и не присваивает его нулю, а прост прибавляет к предыдущему значению
+function makeCounter() {
+  let count = 0;
+  return function() {
+    return count++;
+  };
+}
+let counter1 = makeCounter();
+let counter2 = makeCounter();
+alert( counter1() ); // 0
+alert( counter1() ); // 1
+
+alert( counter2() ); // 0 (independent)
+
+
+
+function sayHiBye(firstName, lastName) {
+	// helper nested function to use below
+	function getFullName() {
+		return firstName + " " + lastName;
+	}
+alert( "Hello, " + getFullName() );
+alert( "Bye, " + getFullName() );
+}
 /*----------  MODULES  ----------*/
 function User(){
 	var username, password;
