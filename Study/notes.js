@@ -337,6 +337,25 @@ for(let key in salaries){
 	sum += salaries[key];
 }
 
+
+//SORT OBJECTS 
+let users = [
+  { name: "John", age: 20, surname: "Johnson" },
+  { name: "Pete", age: 18, surname: "Peterson" },
+  { name: "Ann", age: 19, surname: "Hathaway" }
+];
+
+function byField(field) {
+  return (a, b) => a[field] > b[field] ? 1 : -1;
+}
+
+users.sort(byField('name'));
+users.forEach(user => alert(user.name)); // Ann, John, Pete
+
+users.sort(byField('age'));
+users.forEach(user => alert(user.name)); // Pete, Ann, John
+
+
 /*----------  M A P   ----------*/
 //Map is a collection of keyed data items, just like an Object. 
 //But the main difference is that Map allows keys of any type. (like object)
@@ -765,6 +784,27 @@ alert( counter1() ); // 1
 alert( counter2() ); // 0 (independent)
 
 
+function makeCounter() {
+  var currentCount = 1;
+  function counter() {
+    return currentCount++;
+  }
+  counter.set = function(value) {
+    currentCount = value;
+  };
+  counter.reset = function() {
+    currentCount = 1;
+  };
+
+  return counter;
+}
+
+var counter = makeCounter();
+alert( counter() ); // 1
+alert( counter() ); // 2
+counter.set(5);
+alert( counter() ); // 5
+
 
 function sayHiBye(firstName, lastName) {
 	// helper nested function to use below
@@ -774,6 +814,8 @@ function sayHiBye(firstName, lastName) {
 alert( "Hello, " + getFullName() );
 alert( "Bye, " + getFullName() );
 }
+
+
 /*----------  MODULES  ----------*/
 function User(){
 	var username, password;
@@ -1044,6 +1086,36 @@ function greetUser(customerName, sex)  {
  ​
  ​// And this is the output​ : Hello, Mr. Bill Gates
 	 
+
+
+/*----------  set timeout/ set interval  ----------*/
+function printNumbers(from, to) {
+  let current = from;
+
+  setTimeout(function go() {
+    alert(current);
+    if (current < to) {
+      setTimeout(go, 1000);
+    }
+    current++;
+  }, 1000);
+}
+printNumbers(5, 10);
+
+function printNumbers(from, to) {
+  let current = from;
+
+  let timerId = setInterval(function() {
+    alert(current);
+    if (current == to) {
+      clearInterval(timerId);
+    }
+    current++;
+  }, 1000);
+}
+printNumbers(5, 10);
+
+
 
 /*----------  APPLY  ----------*/
 //Note that we have added an extra parameter for the callback object, called "callbackObj"​
