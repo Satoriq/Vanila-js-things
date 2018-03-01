@@ -1116,6 +1116,31 @@ function printNumbers(from, to) {
 printNumbers(5, 10);
 
 
+/*----------  Memory managment ----------*/
+//Сборщик мусора идёт от корня по ссылкам и запоминает все найденные объекты. 
+//По окончанию – он смотрит, какие объекты в нём отсутствуют и удаляет их.
+function f() {
+  var value = 123;
+  function g() {}
+  return g;
+}
+var g = f(); // function g alive
+// and there is a f() variables because of closure
+g = null; // ..now we clean the memory
+
+
+//V8 optimization
+function f() {
+  var value = Math.random();
+
+  function g() {
+    debugger; //  alert( value ); There is no such variable, because of optimization
+  }
+  return g;
+}
+var g = f();
+g();
+
 
 /*----------  APPLY  ----------*/
 //Note that we have added an extra parameter for the callback object, called "callbackObj"​
