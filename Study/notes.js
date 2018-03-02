@@ -48,7 +48,32 @@ function movies(messageFunction, name) {
 	console.log("My favorite movie is " + movieName);
 	}, "Finding Nemo"); //My favorite movie is Finding Nemo
 
+	//Properties
+	let sayHi = function() {
+		alert("Hi");
+	}
+	alert(sayHi.name); // sayHi 
 
+	function f1(a) {}
+	function f2(a, b) {}
+	function many(a, b, ...more) {}
+	alert(f1.length); // 1
+	alert(f2.length); // 2
+	alert(many.length); // 2
+
+	//Custom properties
+	function sayHi() {
+		alert("Hi");
+	
+		// let's count how many times we run
+		sayHi.counter++;
+	}
+	sayHi.counter = 0; // initial value
+	
+	sayHi(); // Hi
+	sayHi(); // Hi
+	
+	alert( `Called ${sayHi.counter} times` ); // Called 2 times
 
 
 /*----------  SCOPE  ----------*/
@@ -980,11 +1005,29 @@ function logArguments() {
 	}
 }
 
-function logArguments(...args) {
-	for (let arg of args) {
-			console.log(arg);
-	}
+function sumAll(...args) { // args is the name for the array
+  let sum = 0;
+  for (let arg of args) sum += arg;
+  return sum;
 }
+alert( sumAll(1) ); // 1
+alert( sumAll(1, 2) ); // 3
+alert( sumAll(1, 2, 3) ); // 6
+
+function showName(firstName, lastName, ...titles) {
+  alert( firstName + ' ' + lastName ); // Julius Caesar
+
+  // the rest go into titles array
+  // i.e. titles = ["Consul", "Imperator"]
+  alert( titles[0] ); // Consul
+  alert( titles[1] ); // Imperator
+  alert( titles.length ); // 2
+}
+
+showName("Julius", "Caesar", "Consul", "Imperator");
+
+
+
 
 //Named Parameters
 function initializeCanvas(options) {
@@ -1121,7 +1164,7 @@ printNumbers(5, 10);
 //По окончанию – он смотрит, какие объекты в нём отсутствуют и удаляет их.
 function f() {
   var value = 123;
-  function g() {}
+  function g() {}e
   return g;
 }
 var g = f(); // function g alive
@@ -1356,29 +1399,7 @@ alert(fib(20)); // 6765
 alert(fib(75)); // 2111485077978050
 alert(fib(222)); // 1.1111460156937784e+46
 
-//sieve of Eratosthenes
-let arr = [];
-for (let i = 2; i < 100; i++) {
-  arr[i] = true
-}
-let p = 2;
-do {
-  for (i = 2 * p; i < 100; i += p) {
-    arr[i] = false;
-  }
-  for (i = p + 1; i < 100; i++) {
-    if (arr[i]) break;
-  }
-  p = i;
-} while (p * p < 100);
 
-let sum = 0;
-for (i = 0; i < arr.length; i++) {
-  if (arr[i]) {
-    sum += i;
-  }
-}
-console.log(sum)
 
 
 //Recursion
@@ -1390,11 +1411,37 @@ function sumTo(n){
 	}
 }
 
+//Rectrsion for objects
+let company = { // the same object, compressed for brevity
+  sales: [{name: 'John', salary: 1000}, {name: 'Alice', salary: 600 }],
+  development: {
+    sites: [{name: 'Peter', salary: 2000}, {name: 'Alex', salary: 1800 }],
+    internals: [{name: 'Jack', salary: 1300}]
+  }
+};
+// The function to do the job
+function sumSalaries(department) {
+  if (Array.isArray(department)) { // case (1)
+    return department.reduce((prev, current) => prev + current.salary, 0); // sum the array
+  } else { // case (2)
+    let sum = 0;
+    for (let subdep of Object.values(department)) {
+      sum += sumSalaries(subdep); // recursively call for subdepartments, sum the results
+    }
+    return sum;
+  }
+}
+alert(sumSalaries(company)); // 6700
+
+
 //Factorial
 function factorial(n) {
   return (n != 1) ? n * factorial(n - 1) : 1;
 }
 console.log(factorial(7)); //5040
+
+
+
 
 /*----------  is number?  ----------*/
 function isNumeric(n) {
@@ -1772,7 +1819,7 @@ const c = "tree";
 console.log(c);  // tree
 c = 46;  // TypeError! 
 
-// spread ()
+// spread 
 let a = [3, 4, 5];
 let b = [1, 2, ...a, 6];
 console.log(b);  // [1, 2, 3, 4, 5, 6]
@@ -1782,10 +1829,18 @@ console.log(arr);// [1, 2, [3, 4], 5, 6]
 var middle = [3, 4];
 var arr = [1, 2, ...middle, 5, 6];
 console.log(arr); // [1, 2, 3, 4, 5, 6]
-		//String to Array  
+
+//Without spread, the result is an error
+let arr = [3, 5, 1];
+alert( Math.max(...arr) ); // 5 (spread turns array into a list of arguments)
+
+//String to Array  
 var str = "hello";
 var chars = [...str];
 console.log(chars); // ['h', 'e',' l',' l', 'o']
+
+
+
 
 //Destructuring
 let [ a, b, c ] = [ 6, 2, 9];
