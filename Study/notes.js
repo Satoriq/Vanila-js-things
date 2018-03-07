@@ -272,14 +272,15 @@ person.age = 'Thirty-nine'; // should be error
 person.age = 39; // assign new value to age
 console.log(person.age); //39
 
-  //Method
+
+//Method
   sister.paintPicture();// Returns: "Sarah paints!"
 
-  //select
+//select
   sister.name === sister['name']
-  //add new key-value
+//add new key-value
   sister.subNames = ['Mirai', 'Akame'];   ===    sister['subNames'] = ['Mirai', 'Akame'];
-  //change 
+//change 
   sister.subNames = ['Akame'];
 
   delete newObject.removeThisProperty;
@@ -379,6 +380,56 @@ users.forEach(user => alert(user.name)); // Ann, John, Pete
 
 users.sort(byField('age'));
 users.forEach(user => alert(user.name)); // Pete, Ann, John
+
+
+//toString/valueOf
+var user = {
+  firstName: 'Den',
+  toString: function() {
+    return 'User ' + this.firstName;
+  }
+};
+alert( user );  // User Den
+
+var obj = {
+  valueOf: function() {
+    return 1;
+  }
+};
+alert( obj + "test" ); // 1test
+
+//new Function
+function User(name) {
+  this.name = name;
+  this.sayHi = function() {
+    alert( "My name is " + this.name );
+  };
+}
+
+var ivan = new User("Ivan");
+ivan.sayHi(); // My name is Ivan
+/*
+ivan = {
+   name: "Ivan",
+   sayHi: function
+}
+*/
+
+function User(firstName, lastName) {
+  // вспомогательная переменная
+  var phrase = "Hi";
+  //  вспомогательная вложенная функция
+  function getFullName() {
+      return firstName + " " + lastName;
+    }
+
+  this.sayHi = function() {
+    alert( phrase + ", " + getFullName() ); // использование
+  };
+}
+var guy = new User("Just", "Guy");
+guy.sayHi(); // Hi, Just Guy
+
 
 
 /*----------  M A P   ----------*/
@@ -1049,6 +1100,19 @@ bar.a;		// 42 <-- delegated to `foo`
 
 
 /*----------  THIS  ----------*/
+var user = { firstName: "First" };
+var admin = { firstName: "Second" };
+function func() {
+  alert( this.firstName );
+}
+user.f = func;
+admin.g = func;
+// this равен объекту перед точкой:
+user.f(); // First	
+admin.g(); // Second	
+admin['g'](); // Second 
+
+
 function foo() {
 	console.log( this.bar );
 }
@@ -1185,20 +1249,71 @@ var g = f();
 g();
 
 
-/*----------  APPLY  ----------*/
+/*----------  CALL / APPLY  ----------*/
 //Note that we have added an extra parameter for the callback object, called "callbackObj"​
 ​function getUserInput(firstName, lastName, callback, callbackObj)  {
     // Do other stuff to validate name here​
-​
     // The use of the Apply function below will set the this object to be callbackObj​
     callback.apply (callbackObj, [firstName, lastName]);
 }
-
 // We pass the clientData.setUserName method and the clientData object as parameters. The clientData object will be used by the Apply function to set the this object​
 getUserInput ("Some ", "One", clientData.setUserName, clientData);
-​
 ​// the fullName property on the clientData was correctly set​
 console.log (clientData.fullName); // Some One
+
+//Вызов func.call(context, a, b...) – то же, что обычный вызов func(a, b...), но с явно указанным this(=context).
+var user = {
+  firstName: "Just",
+  surname: "Guy",
+  patronym: "Hokage"
+};
+function showFullName(firstPart, lastPart) {
+  alert( this[firstPart] + " " + this[lastPart] );
+}
+// f.call(contex, arg1, arg2, ...)
+showFullName.call(user, 'firstName', 'surname') // "Just Guy"
+showFullName.call(user, 'firstName', 'patronym') // "Just Hokage"
+
+//Call method from array
+function printArgs() {
+  var join = [].join; // скопируем ссылку на функцию в переменную
+  // вызовем join с this=arguments,
+  // этот вызов эквивалентен arguments.join(':') из примера выше
+  var argStr = join.call(arguments, ':');
+  alert( argStr ); // сработает и выведет 1:2:3
+}
+printArgs(1, 2, 3);
+
+//Apply - the same, but we can put array as argument
+var arr = [];
+arr.push(1);
+arr.push(5);
+arr.push(2);
+// получить максимум из элементов arr
+alert( Math.max.apply(null, arr) ); // 5
+
+
+/*----------  BIND  ----------*/
+//Обычно метод теряет контекст при использовании вне обьекта, для этого мы через bind четко указывает контекст 
+var user = {
+  firstName: "Gregor",
+  sayHi: function() {
+    alert( this.firstName );
+  }
+};
+// setTimeout( bind(user.sayHi, user), 1000 );
+setTimeout(user.sayHi.bind(user), 1000); 
+
+/*----------  Currying  ----------*/
+function mul(a, b) {
+  return a * b;
+};
+
+let double = mul.bind(null, 2); // контекст фиксируем null, он не используется
+//first argument is fixed
+alert( double(4) ); // = mul(2, 4) = 8
+alert( double(3) ); // = mul(2, 3) = 6
+alert( double(5) ); // = mul(2, 5) = 10
 
 /*----------  GENERATORS  ----------*/
 function * downToOne(n) {
