@@ -1196,6 +1196,12 @@ function greetUser(customerName, sex)  {
 
 
 /*----------  set timeout/ set interval  ----------*/
+setInterval(func, delay, ...args)  setTimeout(func, delay, ...args)
+//clean 
+let timerId = setTimeout(...);
+clearTimeout(timerId);
+
+
 function printNumbers(from, to) {
   let current = from;
 
@@ -1221,6 +1227,39 @@ function printNumbers(from, to) {
   }, 1000);
 }
 printNumbers(5, 10);
+
+
+//Splitting tasks (user can interact with app during the execurion)
+let i = 0;
+let start = Date.now();
+function count() {
+  do {
+    i++; // 1) count to 1000000 4) add +1 (i = 1000001, i % 1e6 != 0 ) 5) count to 2000000
+  } while (i % 1e6 != 0);
+  if (i == 1e9) { //2) 1000000 != 1000000000  6)2000000 != 1000000000
+    alert("Done in " + (Date.now() - start) + 'ms');
+  } else {
+    setTimeout(count, 0); // 3) schedule the new call  7) schedule the new call
+  }
+}
+count();
+
+//the same, but faster
+let i = 0;
+let start = Date.now();
+function count() {
+  // move the scheduling at the beginning
+  if (i < 1e9 - 1e6) {
+    setTimeout(count, 0); // schedule the new call
+  }
+  do {
+    i++;
+  } while (i % 1e6 != 0);
+  if (i == 1e9) {
+    alert("Done in " + (Date.now() - start) + 'ms');
+  }
+}
+count();
 
 
 /*----------  Memory managment ----------*/
@@ -1548,6 +1587,30 @@ function sumSalaries(department) {
 }
 alert(sumSalaries(company)); // 6700
 
+//Decorators (caching example)
+function slow(x) {
+  // there can be a heavy CPU-intensive job here
+  alert(`Called with ${x}`);
+  return x;
+}
+function cachingDecorator(func) {
+  let cache = new Map();
+  return function(x) {
+    if (cache.has(x)) { // if the result is in the map
+      return cache.get(x); // return it
+    }
+    let result = func(x); // otherwise call func
+    cache.set(x, result); // and cache (remember) the result
+    return result;
+  };
+}
+slow = cachingDecorator(slow);
+
+alert( slow(1) ); // slow(1) is cached
+alert( "Again: " + slow(1) ); // the same
+
+alert( slow(2) ); // slow(2) is cached
+alert( "Again: " + slow(2) ); // the same as the previous line
 
 //Factorial
 function factorial(n) {
@@ -1756,9 +1819,9 @@ class Surgeon {
   const surgeonDurant = new Surgeon('Durant', 'Orthopedics');
   console.log(surgeonCurry.name);//Curry
   surgeonCurry.takeVacationDays(3);
-  console.log(surgeonCurry.remainingVacationDays);//17
+  console.log(surgeonCurry.remainingVacationDays); //17
 
-	//Inheritance
+	// Inheritance
   // 1 parent class properties: name, behavior method: .incrementBehavior()
   // first child properties: name, behavior method: .incrementBehavior()
 	// second child  properties: name, behavior, usesLitter  method: .incrementBehavior()
