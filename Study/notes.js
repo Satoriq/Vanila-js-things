@@ -13,6 +13,31 @@ function myFunc() {}
 let anotherFunc = function () {}
 let yetAnother = () => {}
 
+//Arrow function dont have 'this'
+let group = {
+  title: "Our Group",
+  students: ["John", "Pete", "Alice"],
+
+  showList() {
+    this.students.forEach(
+      student => alert(this.title + ': ' + student)
+    );
+  }
+};
+group.showList();
+
+let group = {
+  title: "Our Group",
+  students: ["John", "Pete", "Alice"],
+  showList() {
+    this.students.forEach(function(student) {
+      // Error: Cannot read property 'title' of undefined
+      alert(this.title + ': ' + student)
+    });
+  }
+};
+group.showList();
+
 
 
 //implicit return
@@ -1537,6 +1562,22 @@ typeof "hello" // returns "string"
 typeof true // returns "boolean"
 typeof [1, 2, 3] // returns "object" (Arrays are a type of object)
 typeof function hello() { } // returns "function"
+
+//[[Class]]
+var toString = {}.toString;
+var arr = [1, 2];
+alert( toString.call(arr) ); // [object Array]
+var date = new Date;
+alert( toString.call(date) ); // [object Date]
+var user = { name: "Вася" };
+alert( toString.call(user) ); // [object Object]
+
+//Array.isArray()
+alert( Array.isArray([1,2,3]) ); // true
+alert( Array.isArray("not array")); // false
+
+
+
 
 //Fibonacci
 function fib(n) {
