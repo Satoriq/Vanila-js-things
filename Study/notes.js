@@ -1577,8 +1577,6 @@ alert( Array.isArray([1,2,3]) ); // true
 alert( Array.isArray("not array")); // false
 
 
-
-
 //Fibonacci
 function fib(n) {
   var a = 1,
@@ -2098,6 +2096,101 @@ let a = {
 };
 a[ city + 'county' ] = 'South Yorkshire';
 console.log(a); // {sheffield_population: 350000, sheffield_county: 'South Yorkshire' }
+
+
+/*----------  JSON  ----------*/
+JSON.stringify(value, replacer, space)
+
+//Space - number of spaces
+//Replace
+var user = {
+  name: "Den",
+  age: 25,
+  window: window
+};
+alert( JSON.stringify(user, ["name", "age"]) );// {"name":"Den","age":25}
+//or
+var str = JSON.stringify(user, function(key, value) {
+  if (key == 'window') return undefined;
+  return value;
+});
+alert( str ); // {"name":"Den","age":25}
+
+
+let room = {
+  number: 23,
+  occupy: function() {
+    alert( this.number );
+  }
+};
+let event = {
+  title: "Conf,
+  date: new Date(Date.UTC(2014, 0, 1)),
+  room: room
+};
+alert( JSON.stringify(event) );
+/*
+  {
+    "title":"Conf",
+    "date":"2014-01-01T00:00:00.000Z",  
+    "room": {"number":23}               
+  }
+*/
+
+/*----------  TRY/CATCH  ----------*/
+// Работает только в синхронном коде
+
+//name
+Тип ошибки. Например, при обращении к несуществующей переменной: "ReferenceError".
+//message
+Текстовое сообщение о деталях ошибки.
+//stack
+Cодержит строку с информацией о последовательности вызовов, которая привела к ошибке.
+
+//throw и "оборачивание"
+function ReadError(message, cause) {
+  this.message = message;
+  this.cause = cause;
+  this.name = 'ReadError';
+  this.stack = cause.stack;
+}
+
+function readData() {
+  var data = '{ bad data }';
+  try {
+    // ...
+    JSON.parse(data);
+    // ...
+  } catch (e) {
+    // ...
+    if (e.name == 'URIError') {
+      throw new ReadError("Ошибка в URI", e);
+    } else if (e.name == 'SyntaxError') {
+      throw new ReadError("Синтаксическая ошибка в данных", e);
+    } else {
+      throw e; // пробрасываем
+    }
+  }
+}
+try {
+  readData();
+} catch (e) {
+  if (e.name == 'ReadError') {
+    alert( e.message );
+    alert( e.cause ); // оригинальная ошибка-причина
+  } else {
+    throw e;
+  }
+}
+
+//finally
+try {
+  //.. пробуем выполнить код ..
+} catch(e) {
+  //.. перехватываем исключение ..
+} finally {
+  //.. выполняем всегда ..
+}
 
 
 
