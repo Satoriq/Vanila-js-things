@@ -2138,14 +2138,21 @@ alert( JSON.stringify(event) );
 */
 
 /*----------  TRY/CATCH  ----------*/
-// Работает только в синхронном коде
+// Works only synchronously, in case of assync func with setTimeout, try/cath must be inside that function
+setTimeout(function() {
+  try {
+    noSuchVariable; // try..catch handles the error!
+  } catch (e) {
+    alert( "error is caught here!" );
+  }
+}, 1000);
 
 //name
-Тип ошибки. Например, при обращении к несуществующей переменной: "ReferenceError".
+Error name. For an undefined variable that’s "ReferenceError".
 //message
-Текстовое сообщение о деталях ошибки.
+Textual message about error details.
 //stack
-Cодержит строку с информацией о последовательности вызовов, которая привела к ошибке.
+Current call stack.
 
 //throw и "оборачивание"
 function ReadError(message, cause) {
@@ -2192,7 +2199,18 @@ try {
   //.. выполняем всегда ..
 }
 
-
+//window.onerror
+window.onerror = function(message, url, line, col, error) {
+  alert(`${message}\n At ${line}:${col} of ${url}`);
+};
+//message
+Error message.
+//url
+URL of the script where error happened.
+//line, col
+Line and column numbers where error happened.
+//error
+Error object.
 
 /*----------  REQUESTS  ----------*/
 
@@ -2421,9 +2439,51 @@ raises x to power n
 ‣5 in the power 3 is 125
 
 
+//OOP (в функциональном стиле)(ES3)
+//Инкапсуляция и наследование 
 
+function Machine(power) { // Родитель (то что есть у всех наследников)
+  this._enabled = false;
 
+  var self = this; // Чтобы не терять this при передаче
 
+  this.enable = function() {
+    // используем внешнюю переменную вместо this
+    self._enabled = true;
+  };
+
+  this.disable = function() {
+    self._enabled = false;
+  };
+}
+
+function CoffeeMachine(power) { //Наследник
+  Machine.apply(this, arguments); // Добавляем свойства/методы родителя
+
+  var waterAmount = 0; // Приватное свойство(доступ только из методов этого класса)
+
+  this.setWaterAmount = function(amount) { // Публичное(может быть изменено/заданно из вне)
+    waterAmount = amount;
+  };
+
+  var parentEnable = this.enable; // Копируем enable от родителя
+  this.enable = function() { // Публичное, может быть "включенно" из вне
+      parentEnable(); // Добовляем enable родителя, теперь его можно вызывать как угодно, this не важен (ибо var self = this)
+      this.run(); // То чем enable кофеварки отличается от "дефолтного" enable родителя
+    }
+
+  function onReady() {
+    alert( 'Кофе готово!' );
+  }
+
+  this.run = function() {
+    setTimeout(onReady, 1000);
+  };
+}
+
+var coffeeMachine = new CoffeeMachine(10000);
+coffeeMachine.setWaterAmount(50);
+coffeeMachine.enable();
 
 
 
