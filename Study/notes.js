@@ -2485,8 +2485,66 @@ var coffeeMachine = new CoffeeMachine(10000);
 coffeeMachine.setWaterAmount(50);
 coffeeMachine.enable();
 
+//OOP (в прототипном стиле)(ES3)
+var animal = {
+  eats: true
+};
+var rabbit = {
+  jumps: true
+};
+rabbit.__proto__ = animal;
+// в rabbit можно найти оба свойства
+alert( rabbit.jumps ); // true
+alert( rabbit.eats ); // true
+
+//hasOwnProperty
+var animal = {
+  eats: true
+};
+var rabbit = {
+  jumps: true,
+  __proto__: animal
+};
+
+alert( rabbit.hasOwnProperty('jumps') ); // true: jumps принадлежит rabbit
+alert( rabbit.hasOwnProperty('eats') ); // false: eats не принадлежит
+
+for (var key in rabbit) {
+  if (!rabbit.hasOwnProperty(key)) continue; // пропустить "не свои" свойства
+  alert( key + " = " + rabbit[key] ); // выводит только "jumps"
+}
+
+//new и прототип
+var animal = {
+  eats: true
+};
+function Rabbit(name) {
+  this.name = name;
+  this.__proto__ = animal;
+}
+var rabbit = new Rabbit("Кроль");
+alert( rabbit.eats ); // true, из прототипа
+
+//IE10-
+var animal = {
+  eats: true
+};
+function Rabbit(name) {
+  this.name = name;
+}
+Rabbit.prototype = animal; //Использовать для конструкторов
+var rabbit = new Rabbit("Кроль"); //  rabbit.__proto__ == animal
+alert( rabbit.eats ); // true
+
+//Constructor (свойство)
+function Rabbit() {} 
+Rabbit.prototype = { 
+  constructor: Rabbit // Есть у любой функции по дефолту
+};
 
 
+
+Object.create(null) // Создает обьект без свойст, методов (для хранения значений по ключу)
 
 
 
