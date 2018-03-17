@@ -2486,6 +2486,7 @@ coffeeMachine.setWaterAmount(50);
 coffeeMachine.enable();
 
 //OOP (в прототипном стиле)(ES3)
+Object.create(null) // Создает обьект без свойст, методов (для хранения значений)
 var animal = {
   eats: true
 };
@@ -2542,12 +2543,69 @@ Rabbit.prototype = {
   constructor: Rabbit // Есть у любой функции по дефолту
 };
 
+//Класс через прототип
 
+// конструктор
+function Animal(name) {
+  this.name = name;
+  this.speed = 0;
+}
+// методы в прототипе
+Animal.prototype.run = function(speed) {
+  this.speed += speed;
+  alert( this.name + ' run, speed' + this.speed );
+};
+// this.run = function(speed) {
+//   this.speed += speed;
+//   alert( this.name + ' run, speed ' + this.speed );
+// };
 
-Object.create(null) // Создает обьект без свойст, методов (для хранения значений по ключу)
+Animal.prototype.stop = function() {
+  this.speed = 0;
+  alert( this.name + ' standing' );
+};
+var animal = new Animal('Animal');
+alert( animal.speed ); // 0, свойство взято из прототипа
+animal.run(5); // Animal run, speed 5
+animal.run(5); // Animal run, speed 10
+animal.stop(); // Animal standing
 
+//Наследование классов
 
+// --------- Класс-Родитель ------------
+// Конструктор родителя пишет свойства конкретного объекта
+function Animal(name) {
+  this.name = name;
+  this.speed = 0;
+}
 
+// Методы хранятся в прототипе
+Animal.prototype.run = function() {
+  alert(this.name + " бежит!")
+}
+
+// --------- Класс-потомок -----------
+// Конструктор потомка
+function Rabbit(name) {
+  Animal.apply(this, arguments);
+}
+
+// Унаследовать
+Rabbit.prototype = Object.create(Animal.prototype);
+
+// Желательно и constructor сохранить
+Rabbit.prototype.constructor = Rabbit;
+
+// Методы потомка
+Rabbit.prototype.run = function() {
+  // Вызов метода родителя внутри своего
+  Animal.prototype.run.apply(this);
+  alert( this.name + " jump!" );
+};
+
+// Готово, можно создавать объекты
+var rabbit = new Rabbit('Rabit');
+rabbit.run();
 
 
 
