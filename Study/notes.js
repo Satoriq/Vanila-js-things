@@ -2439,6 +2439,8 @@ raises x to power n
 ‣5 in the power 3 is 125
 
 
+/*----------  REQUESTS  ----------*/
+
 //OOP (в функциональном стиле)(ES3)
 //Инкапсуляция и наследование 
 
@@ -2485,8 +2487,9 @@ var coffeeMachine = new CoffeeMachine(10000);
 coffeeMachine.setWaterAmount(50);
 coffeeMachine.enable();
 
-//OOP (в прототипном стиле)(ES3)
-Object.create(null) // Создает обьект без свойст, методов (для хранения значений)
+//OOP (в прототипном стиле)
+
+//Для существующих обьектов, несовместимо с IE 10-
 var animal = {
   eats: true
 };
@@ -2497,6 +2500,7 @@ rabbit.__proto__ = animal;
 // в rabbit можно найти оба свойства
 alert( rabbit.jumps ); // true
 alert( rabbit.eats ); // true
+
 
 //hasOwnProperty
 var animal = {
@@ -2510,23 +2514,15 @@ var rabbit = {
 alert( rabbit.hasOwnProperty('jumps') ); // true: jumps принадлежит rabbit
 alert( rabbit.hasOwnProperty('eats') ); // false: eats не принадлежит
 
+// Перебор только своих свойств
 for (var key in rabbit) {
   if (!rabbit.hasOwnProperty(key)) continue; // пропустить "не свои" свойства
   alert( key + " = " + rabbit[key] ); // выводит только "jumps"
 }
 
-//new и прототип
-var animal = {
-  eats: true
-};
-function Rabbit(name) {
-  this.name = name;
-  this.__proto__ = animal;
-}
-var rabbit = new Rabbit("Кроль");
-alert( rabbit.eats ); // true, из прототипа
 
-//IE10-
+
+// Установка прототипа через .prototype ("актуально")
 var animal = {
   eats: true
 };
@@ -2537,15 +2533,31 @@ Rabbit.prototype = animal; //Использовать для конструкт�
 var rabbit = new Rabbit("Кроль"); //  rabbit.__proto__ == animal
 alert( rabbit.eats ); // true
 
+// Установка прототипа через  __proto__ (не актуально)
+var animal = {
+  eats: true
+};
+function Rabbit(name) {
+  this.name = name;
+  this.__proto__ = animal;
+}
+var rabbit = new Rabbit("Кроль");
+alert( rabbit.eats ); // true, из прототипа
+
 //Constructor (свойство)
+//При использовании Rabbit.prototype = animal; Мы теряем конструктор, стоит задать его в ручную
 function Rabbit() {} 
 Rabbit.prototype = { 
   constructor: Rabbit // Есть у любой функции по дефолту
 };
 
-//Класс через прототип
 
-// конструктор
+//Класс через прототип
+//Когда мы задаем методы через Animal.prototype, то все эти методы будут у обьектов созданных с помощью конструктора(Animal)
+//ибо данный прототип будет у каждого созданного обьекта
+//Также мы не имеем доступа к приватным переменным из прототипа, поэтому максимум довольствуемся "защищенными"
+
+//Конструктор
 function Animal(name) {
   this.name = name;
   this.speed = 0;
@@ -2555,57 +2567,60 @@ Animal.prototype.run = function(speed) {
   this.speed += speed;
   alert( this.name + ' run, speed' + this.speed );
 };
-// this.run = function(speed) {
-//   this.speed += speed;
-//   alert( this.name + ' run, speed ' + this.speed );
-// };
 
 Animal.prototype.stop = function() {
   this.speed = 0;
   alert( this.name + ' standing' );
 };
+
 var animal = new Animal('Animal');
+
 alert( animal.speed ); // 0, свойство взято из прототипа
 animal.run(5); // Animal run, speed 5
 animal.run(5); // Animal run, speed 10
 animal.stop(); // Animal standing
 
-//Наследование классов
 
-// --------- Класс-Родитель ------------
-// Конструктор родителя пишет свойства конкретного объекта
+//Наследование классов
+// 1. Конструктор Animal
 function Animal(name) {
   this.name = name;
   this.speed = 0;
 }
-
-// Методы хранятся в прототипе
-Animal.prototype.run = function() {
-  alert(this.name + " бежит!")
+// 1.1. Методы -- в прототип
+Animal.prototype.stop = function() {
+  this.speed = 0;
+  alert( this.name + ' стоит' );
 }
 
-// --------- Класс-потомок -----------
-// Конструктор потомка
+Animal.prototype.run = function(speed) {
+  this.speed += speed;
+  alert( this.name + ' бежит, скорость ' + this.speed );
+};
+
+// 2. Конструктор Rabbit
 function Rabbit(name) {
-  Animal.apply(this, arguments);
+  // this.name = name;
+  // this.speed = 0; Вместо этого, строка ниже
+    Animal.apply(this, arguments);
 }
 
-// Унаследовать
+// 2.1. Наследование
 Rabbit.prototype = Object.create(Animal.prototype);
-
-// Желательно и constructor сохранить
 Rabbit.prototype.constructor = Rabbit;
 
-// Методы потомка
-Rabbit.prototype.run = function() {
-  // Вызов метода родителя внутри своего
-  Animal.prototype.run.apply(this);
-  alert( this.name + " jump!" );
-};
+// 2.2. Методы Rabbit
+Rabbit.prototype.jump = function() {
+  // добавляем(вызываем в текущем контексте) метод родителя, передав ему текущие аргументы(которых сейчас нет)
+  Animal.prototype.run.apply(this, arguments);
+  this.speed++;
+  alert( this.name + ' прыгает, скорость ' + this.speed );
+}
 
 // Готово, можно создавать объекты
 var rabbit = new Rabbit('Rabit');
 rabbit.run();
+
 
 
 //instanceof для классов
@@ -2615,6 +2630,7 @@ function Rabbit() {}
 var rabbit = new Rabbit();
 // проверяем -- этот объект создан Rabbit?
 alert( rabbit instanceof Rabbit ); // true
+
 
 
 // Создание своих ошибок
