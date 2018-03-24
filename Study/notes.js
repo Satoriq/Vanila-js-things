@@ -1569,7 +1569,7 @@ var arr = [1, 2];
 alert( toString.call(arr) ); // [object Array]
 var date = new Date;
 alert( toString.call(date) ); // [object Date]
-var user = { name: "Вася" };
+var user = { name: "Den" };
 alert( toString.call(user) ); // [object Object]
 
 //Array.isArray()
@@ -2062,6 +2062,14 @@ console.log(chars); // ['h', 'e',' l',' l', 'o']
 //Destructuring
 let [ a, b, c ] = [ 6, 2, 9];
 console.log(`a=${a}, b=${b}, c=${c}`); //a=6, b=2, c=9
+// значения по умолчанию
+let [firstName="Гость", lastName="Анонимный"] = [];
+let [firstName, lastName=defaultLastName()] = ["Den"];
+// если переменные уже существуют
+let a, b;
+({a, b} = {a:5, b:6}); // скобки нужны чтобы {} не воспринимался как блок
+
+
 function foo() { return ['car', 'dog', 6 ]; } 
 let [ x, y, z ] = foo();
 console.log(`x=${x}, y=${y}, z=${z}`);  // x=car, y=dog, z=6
@@ -2071,6 +2079,39 @@ let { a, c } = bar();
 console.log(a); // 1
 console.log(c); // 3
 console.log(b); // undefined
+
+
+
+//destructuring obj
+let options = {
+  title: "Меню",
+  width: 100,
+  height: 200
+};
+
+let {title, width, height} = options;
+//or 
+let {width: w, height: h, title} = options;
+
+alert(title);  // Меню
+alert(width);  // 100
+
+//destructuring obj to param
+function showMenu({title, width, height})
+//c дефолтным значением и переименованием
+function showMenu({title="Заголовок", width:w=100, height:h=200}) {
+  alert(title + ' ' + w + ' ' + h);
+}
+
+// Масив внутри обьекта
+let options = {
+  size: {
+    width: 100,
+    height: 200
+  },
+  items: ["Пончик", "Пирожное"]
+}
+let { title="Меню", size: {width, height}, items: [item1, item2] } = options;
 
 //concise parameter
 let a = 4, b = 7;
@@ -2439,7 +2480,7 @@ raises x to power n
 ‣5 in the power 3 is 125
 
 
-/*----------  REQUESTS  ----------*/
+/*----------  OOP  ----------*/
 
 //OOP (в функциональном стиле)(ES3)
 //Инкапсуляция и наследование 
