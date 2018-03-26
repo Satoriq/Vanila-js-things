@@ -2010,6 +2010,98 @@ function initMap(){
 	});
 }
 
+//
+// ────────────────────────────────────────────────────────────────────────────────── I ───────
+//   :::::: ES 5 : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────────────────────────────
+//
+//Функции шаблонизации
+function f(strings, ...values) {
+  alert(JSON.stringify(strings));     // ["Sum of "," + "," =\n ","!"]
+  alert(JSON.stringify(strings.raw)); // ["Sum of "," + "," =\\n ","!"]
+  alert(JSON.stringify(values));      // [3,5,8]
+}
+let apples = 3;
+let oranges = 5;
+//          |  s[0] | v[0] |s[1]| v[1]  |s[2]  |      v[2]      |s[3]
+let str = f`Sum of ${apples} + ${oranges} =\n ${apples + oranges}!`;
+
+
+let propName = "firstName";
+let user = {
+  [propName]: "Den"
+};
+
+
+let a = "1";
+let b = " 2";
+let c = " 3";
+let user = {
+  [(a + b + c).toLowerCase()]: "Den"
+};
+alert( user["1 2 3"] ); // Den
+
+//Prototype
+Object.getPrototypeOf(obj)
+
+Object.setPrototypeOf(obj, newProto)
+
+//Object.assign
+let user = { name: "Вася" };
+let visitor = { isAdmin: false, visits: true };
+let admin = { isAdmin: true };
+Object.assign(user, visitor, admin);
+console.log(user); // обьект со всеми свойствами (isAdmin = true)
+
+//Methods
+let name = "Вася";
+let user = {
+  name,
+  // вместо "sayHi: function() {...}" пишем "sayHi() {...}"
+  sayHi() {
+    alert(this.name);
+  }
+};
+
+//Super (call  method from prototype)
+let animal = {
+  walk() {
+    alert("I'm walking");
+  }
+};
+
+let rabbit = {
+  __proto__: animal,
+  walk() {
+    alert(super.walk); // walk() { … }
+    super.walk(); // I'm walking
+  }
+};
+
+//Class
+
+//old
+function User(name) {
+  this.name = name;
+}
+User.prototype.sayHi = function() {
+  alert(this.name);
+};
+
+//new
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+
+  sayHi() {
+    alert(this.name);
+  }
+}
+
+let user = new User("Den");
+user.sayHi(); // Den
+
 
 //
 // ────────────────────────────────────────────────────────────────────────────────── I ───────
@@ -2022,6 +2114,7 @@ var a = 'Hi, I\'m ' + fName + ' ' + sName + ', I\'m ' + age + ' and work as a ' 
 // ${ var } 
 var b = `Hi, I'm ${ fName } ${ sName }, I'm ${ age } and work as a ${ job }.`;
 // ` above the tab
+
 
 // let
 var a = 'car' ;
