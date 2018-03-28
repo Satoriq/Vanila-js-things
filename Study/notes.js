@@ -2102,6 +2102,50 @@ class User {
 let user = new User("Den");
 user.sayHi(); // Den
 
+//static
+class User {
+  constructor(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  static createGuest() {
+    return new User("Гость", "Сайта");
+  }
+};
+let user = User.createGuest();
+alert( user.firstName ); // Гость
+alert( User.createGuest ); // createGuest ... (функция)
+
+//extend(наследование)
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  walk() {
+    alert("I walk: " + this.name);
+  }
+}
+class Rabbit extends Animal {
+  constructor() {
+    // вызвать конструктор Animal с аргументом "Кроль"
+    super("Кроль"); // то же, что и Animal.call(this, "Кроль")
+  }
+}
+new Rabbit().walk(); // I walk: Кроль
+
+//symbol
+let user = {
+  name: "Вася",
+  age: 30,
+  [Symbol.for("isAdmin")]: true
+};
+
+// в цикле for..in также не будет символа
+alert( Object.keys(user) ); // name, age
+// доступ к свойству через глобальный символ — работает
+alert( user[Symbol.for("isAdmin")] );
+
 
 //
 // ────────────────────────────────────────────────────────────────────────────────── I ───────
