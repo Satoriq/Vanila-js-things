@@ -477,6 +477,15 @@ visitsCountMap.set(john, 123);
 alert( visitsCountMap.get(john) ); // 123
 
 //ITERATION
+let arr = [1, 2, 3]; // массив — пример итерируемого объекта
+for (let value of arr) {
+  alert(value); // 1, затем 2, затем 3
+}
+
+for (let char of "Hello") {
+  alert(char); // Выведет по одной букве: H, e, l, l, o
+}
+
 let recipeMap = new Map([
   ['cucumber', 500],
   ['tomatoes', 350],
@@ -493,6 +502,36 @@ for (let entry of recipeMap) { // the same as of recipeMap.entries()
 recipeMap.forEach( (value, key, map) => {
 	alert(`${key}: ${value}`); // cucumber: 500 etc
 });
+
+//Свой итератор
+let range = {
+  from: 1,
+  to: 5
+}
+// сделаем объект range итерируемым
+range[Symbol.iterator] = function() {
+  let current = this.from;
+  let last = this.to;
+  // метод должен вернуть объект с методом next()
+  return {
+    next() {
+      if (current <= last) {
+        return {
+          done: false,
+          value: current++
+        };
+      } else {
+        return {
+          done: true
+        };
+      }
+    }
+
+  }
+};
+for (let num of range) {
+  alert(num); // 1, затем 2, 3, 4, 5
+}
 
 /*----------  S E T   ----------*/
 //A Set is a collection of values, where each value may occur only once.
@@ -2136,7 +2175,7 @@ new Rabbit().walk(); // I walk: Кроль
 
 //symbol
 let user = {
-  name: "Вася",
+  name: "Den",
   age: 30,
   [Symbol.for("isAdmin")]: true
 };
