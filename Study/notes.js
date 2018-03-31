@@ -464,7 +464,8 @@ map.set('1', 'str1');   // a string key
 map.set(1, 'num1');     // a numeric key
 map.set(true, 'bool1'); // a boolean key
 //chain
-map.set('1', 'str1')
+map
+  .set('1', 'str1')
   .set(1, 'num1')
   .set(true, 'bool1');
 
@@ -476,16 +477,11 @@ let visitsCountMap = new Map();
 visitsCountMap.set(john, 123);
 alert( visitsCountMap.get(john) ); // 123
 
+map.delete(key) //delete record? with key, returns true, if record exists, otherwise false.
+map.clear()  // deletes all records, cleans the map
+map.has(key) //true if key exists
+
 //ITERATION
-let arr = [1, 2, 3]; // массив — пример итерируемого объекта
-for (let value of arr) {
-  alert(value); // 1, затем 2, затем 3
-}
-
-for (let char of "Hello") {
-  alert(char); // Выведет по одной букве: H, e, l, l, o
-}
-
 let recipeMap = new Map([
   ['cucumber', 500],
   ['tomatoes', 350],
@@ -495,6 +491,10 @@ let recipeMap = new Map([
 for (let vegetable of recipeMap.keys()) {
   alert(vegetable); // cucumber, tomateos, onion
 }
+// iterate over values
+for(let amount of recipeMap.values()) {
+  alert(amount); // 500, 350, 50
+}
 // iterate over [key, value] entries
 for (let entry of recipeMap) { // the same as of recipeMap.entries()
 	alert(entry); // cucumber,500 (and so on)
@@ -503,35 +503,6 @@ recipeMap.forEach( (value, key, map) => {
 	alert(`${key}: ${value}`); // cucumber: 500 etc
 });
 
-//Свой итератор
-let range = {
-  from: 1,
-  to: 5
-}
-// сделаем объект range итерируемым
-range[Symbol.iterator] = function() {
-  let current = this.from;
-  let last = this.to;
-  // метод должен вернуть объект с методом next()
-  return {
-    next() {
-      if (current <= last) {
-        return {
-          done: false,
-          value: current++
-        };
-      } else {
-        return {
-          done: true
-        };
-      }
-    }
-
-  }
-};
-for (let num of range) {
-  alert(num); // 1, затем 2, 3, 4, 5
-}
 
 /*----------  S E T   ----------*/
 //A Set is a collection of values, where each value may occur only once.
@@ -548,16 +519,47 @@ set.add(mary);
 // set keeps only unique values
 alert( set.size ); // 3
 
+set.add(item) //add item
+set.delete(item) //deletes item from collection, return true, if item exists, otherwise false.
+set.has(item) // return true, if item exists in collection, otherwise false.
+set.clear() //cleans the set
+
+
+//ITERATION
 for (let user of set) {
   alert(user.name); // John (then Pete and Mary)
 }
 
-//ITERATION
 set.forEach((value, valueAgain, set) => {
   alert(value);
 });
 
+/*----------  WEAK MAP/ WEAK SET   ----------*/
+//Additional information for object, which disappears with the object
 
+// active users
+let activeUsers = [
+  {name: "Вася"},
+  {name: "Петя"},
+  {name: "Маша"}
+];
+
+// additional information about them,
+// which stored separately from obj
+let weakMap = new WeakMap();
+
+weakMap.set(activeUsers[0], 1);
+weakMap.set(activeUsers[1], 2);
+weakMap.set(activeUsers[2], 3);
+weakMap.set('Katya', 4); // TypeError: "Katya" is not a non-null object . Only object can be a key 
+
+alert( weakMap.get(activeUsers[0]) ); // 1
+
+activeUsers.splice(0, 1); // Вася is no longer active user
+// weakMap now contain only 2 elements
+
+activeUsers.splice(0, 1); // Петя is no longer active user
+// weakMap now contain only 1 element
 
 /*----------  MATH  ----------*/
 //Операнд(operand) – то, к чему применяется оператор. Например: 5 * 2 – оператор умножения с левым и правым операндами.
@@ -1719,6 +1721,37 @@ console.log(hello.length); // Output: 11
 console.log('Hello'.toUpperCase()); 
 console.log(Math.ceil(43.8)); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
 console.log(Number.isInteger(2017)); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+
+/*----------  Custom iterator  ----------*/
+let range = {
+  from: 1,
+  to: 5
+}
+// сделаем объект range итерируемым
+range[Symbol.iterator] = function() {
+  let current = this.from;
+  let last = this.to;
+  // метод должен вернуть объект с методом next()
+  return {
+    next() {
+      if (current <= last) {
+        return {
+          done: false,
+          value: current++
+        };
+      } else {
+        return {
+          done: true
+        };
+      }
+    }
+
+  }
+};
+for (let num of range) {
+  alert(num); // 1, затем 2, 3, 4, 5
+}
 
 /*----------  LOGIC  ----------*/
 'Y' != 'y' // true
