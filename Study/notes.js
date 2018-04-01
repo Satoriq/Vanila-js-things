@@ -2060,8 +2060,69 @@ function saveToTheDb(value) {
 		resolve(user);
 	  })
 	}
-	}
-	
+  }
+  
+// make request
+httpGet('/article/promise/user.json')
+// 1. Get date about user in JSON and transfer further
+.then(response => {
+  console.log(response);
+  let user = JSON.parse(response);
+  return user;
+})
+// 2. Get info from github
+.then(user => {
+  console.log(user);
+  return httpGet(`https://api.github.com/users/${user.name}`);
+})
+// 3. Show icon for 3 sec (можно с анимацией)
+.then(githubUser => {
+  console.log(githubUser);
+  githubUser = JSON.parse(githubUser);
+
+  let img = new Image();
+  img.src = githubUser.avatar_url;
+  img.className = "promise-avatar-example";
+  document.body.appendChild(img);
+
+  setTimeout(() => img.remove(), 3000); 
+})
+.catch(error => {
+  alert(error); // Error: Not Found
+});
+
+//Promise.all
+Promise.all([
+  httpGet('/article/promise/user.json'),
+  httpGet('/article/promise/guest.json')
+]).then(results => {
+  alert(results);
+});
+
+let urls = [
+  '/article/promise/user.json',
+  '/article/promise/guest.json'
+];
+Promise.all( urls.map(httpGet) )
+  .then(results => {
+    alert(results);
+  });
+
+//Promise.race
+Promise.race([
+  httpGet('/article/promise/user.json'),
+  httpGet('/article/promise/guest.json')
+]).then(firstResult => {
+  firstResult = JSON.parse(firstResult);
+  alert( firstResult.name ); // iliakan или guest, which downloaded first
+});
+
+//Promise.resolve(value)
+Promise.resolve(window.location) // start with this value
+  .then(httpGet) // call httpGet
+  .then(alert) // and show the result
+
+
   //
 // ────────────────────────────────────────────────────────────────────────────────── I ───────
 //   :::::: G O O G L E   M A P S   A P I : :  :   :    :     :        :          :
