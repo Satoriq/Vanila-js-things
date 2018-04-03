@@ -2326,6 +2326,70 @@ alert( Object.keys(user) ); // name, age
 alert( user[Symbol.for("isAdmin")] );
 
 
+//Proxy
+let proxy = new Proxy(target, handler)
+//target – объект, обращения к которому надо перехватывать.
+//handler – объект с «ловушками»: функциями-перехватчиками для операций к target.
+
+let user = {};
+
+let proxy = new Proxy(user, {
+  get(target, prop) {
+    alert(`Чтение ${prop}`);
+    return target[prop];
+  },
+  set(target, prop, value) {
+    alert(`Запись ${prop} ${value}`);
+    target[prop] = value;
+    return true;
+  }
+});
+proxy.firstName = "Ilya"; // запись
+proxy.firstName; // чтение
+alert(user.firstName); // Ilya
+
+//has
+let dictionary = {
+  'Hello': 'Привет'
+};
+dictionary = new Proxy(dictionary, {
+  has(target, phrase) {
+    return true;
+  }
+});
+alert("BlaBlaBla" in dictionary); // true
+
+//deleteProperty
+let dictionary = {
+  'Hello': 'Привет'
+};
+let proxy = new Proxy(dictionary, {
+  deleteProperty(target, phrase) {
+    return true; // ничего не делаем, но возвращает true
+  }
+});
+// не удалит свойство
+delete proxy['Hello'];
+alert("Hello" in dictionary); // true
+// будет то же самое, что и выше
+// так как нет ловушки has, операция in сработает на исходном объекте
+alert("Hello" in proxy); // true
+
+//apply
+function sum(a, b) {
+  return a + b;
+}
+let proxy = new Proxy(sum, {
+  // передаст вызов в target, предварительно сообщив о нём
+  apply: function(target, thisArg, argumentsList) {
+    alert(`Буду вычислять сумму: ${argumentsList}`);
+    return target.apply(thisArg, argumentsList);
+  }
+});
+// Выведет сначала сообщение из прокси,
+// а затем уже сумму
+alert( proxy(1, 2) );
+
 //
 // ────────────────────────────────────────────────────────────────────────────────── I ───────
 //   :::::: ES 6 : :  :   :    :     :        :          :
